@@ -1,0 +1,5649 @@
+{
+  "meta": {
+    "appName": "每日预测",
+    "sourceApiUrl": "https://webapi.sporttery.cn/gateway/uniform/football/getMatchCalculatorV1.qry?channel=c&poolCode=crs",
+    "officialUpdatedAt": "2026-06-12 17:22:15",
+    "verifiedAt": "2026-06-12 17:50（北京时间）",
+    "sourceFile": "D:\\工程\\tapnow-clone-backup-v13-theme-complete\\worldcup_score_odds_view_2026-06-12.html",
+    "importedAt": "2026-06-12T11:52:02.318Z"
+  },
+  "matches": [
+    {
+      "id": "周五003-1",
+      "code": "周五003",
+      "homeTeam": "加拿大",
+      "awayTeam": "波黑",
+      "title": "周五003 加拿大 vs 波黑",
+      "kickoff": "2026-06-13 03:00",
+      "oddsUpdatedAt": "2026-06-12 17:22:15",
+      "featured": true,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.1
+        },
+        {
+          "score": "1:1",
+          "odds": 5.3
+        },
+        {
+          "score": "2:1",
+          "odds": 5.3
+        },
+        {
+          "score": "2:0",
+          "odds": 6.5
+        },
+        {
+          "score": "0:0",
+          "odds": 9.5
+        },
+        {
+          "score": "0:1",
+          "odds": 11
+        },
+        {
+          "score": "1:2",
+          "odds": 14
+        },
+        {
+          "score": "3:1",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.1,
+          "outcomeType": "home",
+          "highlight": "main"
+        },
+        {
+          "score": "0:0",
+          "odds": 9.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 11,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 6.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 5.3,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 28,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 5.3,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 17.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 14,
+          "outcomeType": "away",
+          "highlight": "alt"
+        },
+        {
+          "score": "3:0",
+          "odds": 15.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 80,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 95,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 15,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 500,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 55,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 35,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 70,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 40,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 46,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 120,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 125,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 250,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": {
+        "title": "最近三场重点分析",
+        "summary": "加拿大主场压迫更稳，但戴维斯缺席让边路爆点下降，比赛更像一场低比分小胜局。",
+        "structureTag": "主路径 + 尾部反转",
+        "mainPick": {
+          "score": "1:0",
+          "odds": 5.1
+        },
+        "altPick": {
+          "score": "1:2",
+          "odds": 14
+        },
+        "coverageSummary": "保守版覆盖 5 个比分 100 元: 20/20/20/16/24",
+        "factors": [
+          "近况: 加拿大最近两场正式热身是 6 月 1 日 2比0 乌兹别克斯坦、6 月 5 日 1比1 爱尔兰，整体节奏和压迫质量在线。",
+          "人员: Jesse Marsch 已确认 Alphonso Davies 缺席这场揭幕战，但中卫 Moise Bombito 可以出场；Bosnia 方面 Edin Dzeko 确认可用。",
+          "风格: 加拿大在 Marsch 手下强调前场压迫和边路推进；Bosnia 更依赖 aggressive defending、direct football 和 quick transitions。",
+          "舆论面: 主流报道和盘口都偏向加拿大主场拿分，但因为 Davies 缺阵，外界对大胜的预期明显收敛。"
+        ],
+        "logic": [
+          {
+            "title": "买法逻辑",
+            "description": "主买 1:0，更贴合“主场压制但效率一般”的脚本；高赔补 1:2，不是机械买纯 opposite，而是押 Bosnia 通过 Dzeko 支点和转换效率偷走比赛。"
+          },
+          {
+            "title": "风险修正",
+            "description": "这不是严格对冲，而是杠铃结构。若你只买两注，这种“主路径 + 变量尾部”比 1:0 + 0:2 这种生硬对称更合理。"
+          }
+        ],
+        "sources": [
+          {
+            "title": "Canada Soccer: 2-0 乌兹别克斯坦",
+            "href": "https://canadasoccer.com/match/6385/"
+          },
+          {
+            "title": "Canada Soccer: 1-1 爱尔兰",
+            "href": "https://canadasoccer.com/match/6433/"
+          },
+          {
+            "title": "Sportsnet: Davies 缺席、Bombito 可用",
+            "href": "https://www.sportsnet.ca/fifa-world-cup/article/marsch-davies-out-for-canadas-opener-vs-bosnia-kone-and-bombito-available/"
+          },
+          {
+            "title": "Guardian: Canada 近 15 场只输 1 场",
+            "href": "https://www.theguardian.com/football/2026/may/28/canada-world-cup-2026-team-guide"
+          },
+          {
+            "title": "Guardian: Bosnia 的直接转换风格",
+            "href": "https://www.theguardian.com/football/2026/may/28/bosnia-and-herzegovina-world-cup-2026-team-guide"
+          },
+          {
+            "title": "Sportsnet: Dzeko 可出战",
+            "href": "https://www.sportsnet.ca/fifa-world-cup/article/dzeko-available-for-bosnia-and-herzegovinas-world-cup-opener-vs-canada/"
+          }
+        ],
+        "legacyStrategies": {
+          "conservative": {
+            "title": "保守版: 100 元多比分组合",
+            "notes": [
+              "这套放弃机械 opposite，把 60 元压在 1:0 / 2:1 / 1:1 三个主线比分上，16 元补 2:0，剩余 24 元给 Bosnia 反击兑现的 1:2。覆盖率明显高于两注法，但高利润主要集中在 1:2。",
+              "组合盈利概率估计 47% - 63%；盘面去水参考 约 57.1%。按预测区间中点计算，期望净收益约 -27.80 元；其余比分出现时净亏 100 元。"
+            ],
+            "rows": [
+              {
+                "score": "1:0",
+                "role": "主胜锚点",
+                "stake": 20,
+                "odds": 5.1,
+                "payout": 102,
+                "netProfit": 2,
+                "predictedProbability": {
+                  "low": 0.14,
+                  "high": 0.18,
+                  "mid": 0.16
+                }
+              },
+              {
+                "score": "2:1",
+                "role": "主胜邻近",
+                "stake": 20,
+                "odds": 5.3,
+                "payout": 106,
+                "netProfit": 6,
+                "predictedProbability": {
+                  "low": 0.1,
+                  "high": 0.13,
+                  "mid": 0.115
+                }
+              },
+              {
+                "score": "1:1",
+                "role": "平局保护",
+                "stake": 20,
+                "odds": 5.3,
+                "payout": 106,
+                "netProfit": 6,
+                "predictedProbability": {
+                  "low": 0.1,
+                  "high": 0.13,
+                  "mid": 0.115
+                }
+              },
+              {
+                "score": "2:0",
+                "role": "主队零封",
+                "stake": 16,
+                "odds": 6.5,
+                "payout": 104,
+                "netProfit": 4,
+                "predictedProbability": {
+                  "low": 0.08,
+                  "high": 0.11,
+                  "mid": 0.095
+                }
+              },
+              {
+                "score": "1:2",
+                "role": "高赔反转",
+                "stake": 24,
+                "odds": 14,
+                "payout": 336,
+                "netProfit": 236,
+                "predictedProbability": {
+                  "low": 0.05,
+                  "high": 0.08,
+                  "mid": 0.065
+                }
+              }
+            ]
+          },
+          "aggressive": {
+            "title": "进取版: 100 元两比分组合",
+            "notes": [
+              "把资金集中在主路径 1:0 和变量尾部 1:2，命中率下降，但任一命中都能获得更高净利润。",
+              "组合盈利概率估计 19% - 26%；按预测区间中点计算，期望净收益约 -16.00 元；其余比分出现时净亏 100 元。"
+            ],
+            "rows": [
+              {
+                "score": "1:0",
+                "role": "主路径低比分",
+                "stake": 74,
+                "odds": 5.1,
+                "payout": 377.4,
+                "netProfit": 277.4,
+                "predictedProbability": {
+                  "low": 0.14,
+                  "high": 0.18,
+                  "mid": 0.16
+                }
+              },
+              {
+                "score": "1:2",
+                "role": "变量高赔反转",
+                "stake": 26,
+                "odds": 14,
+                "payout": 364,
+                "netProfit": 264,
+                "predictedProbability": {
+                  "low": 0.05,
+                  "high": 0.08,
+                  "mid": 0.065
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "周五004-2",
+      "code": "周五004",
+      "homeTeam": "美国",
+      "awayTeam": "巴拉圭",
+      "title": "周五004 美国 vs 巴拉圭",
+      "kickoff": "2026-06-13 09:00",
+      "oddsUpdatedAt": "2026-06-12 17:18:11",
+      "featured": true,
+      "topScores": [
+        {
+          "score": "2:1",
+          "odds": 5
+        },
+        {
+          "score": "1:1",
+          "odds": 5.25
+        },
+        {
+          "score": "1:0",
+          "odds": 5.8
+        },
+        {
+          "score": "2:0",
+          "odds": 6
+        },
+        {
+          "score": "0:0",
+          "odds": 9
+        },
+        {
+          "score": "0:1",
+          "odds": 10.5
+        },
+        {
+          "score": "3:1",
+          "odds": 14
+        },
+        {
+          "score": "1:2",
+          "odds": 16
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 9,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 10.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 6,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 5.25,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 23,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 5,
+          "outcomeType": "home",
+          "highlight": "main"
+        },
+        {
+          "score": "2:2",
+          "odds": 18,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 16,
+          "outcomeType": "away",
+          "highlight": "alt"
+        },
+        {
+          "score": "3:0",
+          "odds": 17.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 90,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 70,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 400,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 48,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 43,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 65,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 70,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 65,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 125,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 125,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 200,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": {
+        "title": "最近三场重点分析",
+        "summary": "美国整体质量和主场氛围更好，但巴拉圭的身体对抗和中场反抢足够把比赛拉进高波动区。",
+        "structureTag": "主路径 + 对冲型爆冷尾部",
+        "mainPick": {
+          "score": "2:1",
+          "odds": 5
+        },
+        "altPick": {
+          "score": "1:2",
+          "odds": 16
+        },
+        "coverageSummary": "保守版覆盖 5 个比分 100 元: 20/18/20/18/24",
+        "factors": [
+          "近况: 美国 5 月 31 日 3比2 胜塞内加尔，6 月 6 日 1比2 负德国，但对德国那场整体内容并不差。",
+          "人员: U.S. Soccer 已确认 26 人全员可用，Chris Richards 也恢复可选。",
+          "对手特性: Paraguay 刚结束 16 年世界杯缺席，Pochettino 特别点出他们在预选赛击败巴西和阿根廷；Guardian 认为球队结构高度依赖 Andrés Cubas 的抢断和转换。",
+          "舆论面: 美国本土压力很大，但更衣室气氛和外界信心较 3 月窗口已有修复。"
+        ],
+        "logic": [
+          {
+            "title": "买法逻辑",
+            "description": "主买 2:1，因为美国进攻端在 Pulisic、Balogun、Dest 带动下更像会赢，但不太像零封；高赔补 1:2，押 Paraguay 在中场绞杀和反击效率上赢下关键回合。"
+          },
+          {
+            "title": "风险修正",
+            "description": "如果你想做“保本式”覆盖，第二注不应买极端 opposite，而应买最可能出现的反转脚本；这场 1:2 比 0:2 更像真实变量结果。"
+          }
+        ],
+        "sources": [
+          {
+            "title": "US Soccer: 3-2 塞内加尔",
+            "href": "https://ussoccer.com/stories/2026/05/usmnt/match-recap-goals-highlights-vs-senegal"
+          },
+          {
+            "title": "Guardian: 美国 1-2 德国但内容回升",
+            "href": "https://www.theguardian.com/football/2026/jun/07/usmnt-germany-world-cup-friendly-pochettino-robinson"
+          },
+          {
+            "title": "US Soccer: 全员可用、Richards 可出战",
+            "href": "https://www.ussoccer.com/stories/2026/06/usmnt/chris-richards-injury-availability-group-stage-vs-paraguay"
+          },
+          {
+            "title": "FIFA Fantasy: USA / Paraguay 可能首发",
+            "href": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-fantasy-matchday-one-preview-possible-teams"
+          },
+          {
+            "title": "FIFA: Paraguay 重返世界杯、情绪拉满",
+            "href": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/paraguay-return-preview-diego-gomez-alfaro"
+          },
+          {
+            "title": "Guardian: Paraguay 依赖 Cubas 的结构和转换",
+            "href": "https://www.theguardian.com/football/2026/may/31/paraguay-world-cup-2026-team-guide"
+          }
+        ],
+        "legacyStrategies": {
+          "conservative": {
+            "title": "保守版: 100 元多比分组合",
+            "notes": [
+              "美国这场主线比分赔率都不低，适合用 2:1 / 1:0 / 1:1 / 2:0 做成本保护，再用 24 元打 1:2。若巴拉圭的反抢和转换效率兑现，尾部收益最漂亮。",
+              "组合盈利概率估计 46% - 62%；盘面去水参考 约 56.6%。按预测区间中点计算，期望净收益约 -25.70 元；其余比分出现时净亏 100 元。"
+            ],
+            "rows": [
+              {
+                "score": "2:1",
+                "role": "主胜锚点",
+                "stake": 20,
+                "odds": 5,
+                "payout": 100,
+                "netProfit": 0,
+                "predictedProbability": {
+                  "low": 0.15,
+                  "high": 0.19,
+                  "mid": 0.17
+                }
+              },
+              {
+                "score": "1:0",
+                "role": "低比分主胜",
+                "stake": 18,
+                "odds": 5.8,
+                "payout": 104.4,
+                "netProfit": 4.4,
+                "predictedProbability": {
+                  "low": 0.08,
+                  "high": 0.11,
+                  "mid": 0.095
+                }
+              },
+              {
+                "score": "1:1",
+                "role": "平局保护",
+                "stake": 20,
+                "odds": 5.25,
+                "payout": 105,
+                "netProfit": 5,
+                "predictedProbability": {
+                  "low": 0.1,
+                  "high": 0.13,
+                  "mid": 0.115
+                }
+              },
+              {
+                "score": "2:0",
+                "role": "主队零封",
+                "stake": 18,
+                "odds": 6,
+                "payout": 108,
+                "netProfit": 8,
+                "predictedProbability": {
+                  "low": 0.08,
+                  "high": 0.11,
+                  "mid": 0.095
+                }
+              },
+              {
+                "score": "1:2",
+                "role": "高赔反转",
+                "stake": 24,
+                "odds": 16,
+                "payout": 384,
+                "netProfit": 284,
+                "predictedProbability": {
+                  "low": 0.05,
+                  "high": 0.08,
+                  "mid": 0.065
+                }
+              }
+            ]
+          },
+          "aggressive": {
+            "title": "进取版: 100 元两比分组合",
+            "notes": [
+              "只买美国 2:1 和巴拉圭 1:2，两边都是“进球但不零封”的真实脚本，命中后利润更集中。",
+              "组合盈利概率估计 20% - 27%；按预测区间中点计算，期望净收益约 -10.40 元；其余比分出现时净亏 100 元。"
+            ],
+            "rows": [
+              {
+                "score": "2:1",
+                "role": "主路径主胜",
+                "stake": 76,
+                "odds": 5,
+                "payout": 380,
+                "netProfit": 280,
+                "predictedProbability": {
+                  "low": 0.15,
+                  "high": 0.19,
+                  "mid": 0.17
+                }
+              },
+              {
+                "score": "1:2",
+                "role": "变量高赔反转",
+                "stake": 24,
+                "odds": 16,
+                "payout": 384,
+                "netProfit": 284,
+                "predictedProbability": {
+                  "low": 0.05,
+                  "high": 0.08,
+                  "mid": 0.065
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "周六005-3",
+      "code": "周六005",
+      "homeTeam": "卡塔尔",
+      "awayTeam": "瑞士",
+      "title": "周六005 卡塔尔 vs 瑞士",
+      "kickoff": "2026-06-14 03:00",
+      "oddsUpdatedAt": "2026-06-12 14:15:43",
+      "featured": true,
+      "topScores": [
+        {
+          "score": "0:2",
+          "odds": 4.4
+        },
+        {
+          "score": "0:3",
+          "odds": 6.1
+        },
+        {
+          "score": "0:1",
+          "odds": 6.3
+        },
+        {
+          "score": "1:2",
+          "odds": 7.5
+        },
+        {
+          "score": "1:1",
+          "odds": 10
+        },
+        {
+          "score": "1:3",
+          "odds": 10
+        },
+        {
+          "score": "0:4",
+          "odds": 11.5
+        },
+        {
+          "score": "0:0",
+          "odds": 16
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 27,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 16,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 6.3,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 95,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 10,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 4.4,
+          "outcomeType": "away",
+          "highlight": "main"
+        },
+        {
+          "score": "2:1",
+          "odds": 32,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 28,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 7.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 350,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 125,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 6.1,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 500,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 10,
+          "outcomeType": "away",
+          "highlight": "alt"
+        },
+        {
+          "score": "3:2",
+          "odds": 150,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 800,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 11.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 20,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 65,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 800,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 22,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 800,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 40,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 800,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 110,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 19,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": {
+        "title": "最近三场重点分析",
+        "summary": "瑞士的赛事经验、后场稳定性和中轴成熟度都明显高于卡塔尔，这场更像瑞士按部就班控住局面。",
+        "structureTag": "强弱分明局的主线 + 邻近高赔尾部",
+        "mainPick": {
+          "score": "0:2",
+          "odds": 4.4
+        },
+        "altPick": {
+          "score": "1:3",
+          "odds": 10
+        },
+        "coverageSummary": "保守版覆盖 6 个比分 100 元: 24/18/14/24/12/8",
+        "factors": [
+          "历史/经验: Switzerland 是连续第六届世界杯，Qatar 只是第二次参赛。",
+          "人员: 瑞士的经验中轴包括 Xhaka、Akanji、Kobel、Embolo；FIFA 的可能首发也明显更完整。",
+          "卡塔尔状态: Guardian 指出 Lopetegui 上任后很长一段时间只赢过 11 场里的 1 场，且预选赛主轮 10 场丢了 24 球；QFA 也显示他们 5 月 28 日热身 0比1 爱尔兰。",
+          "比赛脚本: 卡塔尔更可能收缩、等反击和定位球；如果 Afif 这条线打不出效率，比赛会被瑞士中场慢慢控住。"
+        ],
+        "logic": [
+          {
+            "title": "买法逻辑",
+            "description": "主买 0:2，因为这是官方比分盘里最被看好的精确比分，且和“瑞士成熟控局、卡塔尔输出有限”的脚本一致；高赔补 1:3，是给卡塔尔靠定位球或 Afif 参与偷一个的变量留口子。"
+          },
+          {
+            "title": "风险修正",
+            "description": "这场不建议硬买纯反向 upset。若主脚本非常强，第二注用“邻近高赔比分”比用完全 opposite 更有效。"
+          }
+        ],
+        "sources": [
+          {
+            "title": "FIFA: Qatar v Switzerland 官方预览",
+            "href": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/qatar-switzerland-preview-live-stream-team-news-tickets"
+          },
+          {
+            "title": "FIFA: 瑞士阵容公告",
+            "href": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/switzerland-squad-announcement-murat-yakin"
+          },
+          {
+            "title": "FIFA Fantasy: Qatar / Switzerland 可能首发",
+            "href": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/world-cup-fantasy-matchday-one-preview-possible-teams"
+          },
+          {
+            "title": "Guardian: Qatar 团队指南",
+            "href": "https://www.theguardian.com/football/2026/may/29/qatar-world-cup-2026-team-guide"
+          },
+          {
+            "title": "QFA: Qatar 0-1 Ireland 热身赛",
+            "href": "https://www.qfa.qa/en/news/ireland-edges-qatar-in-dublin-friendly"
+          },
+          {
+            "title": "FIFA: 瑞士连续第六届世界杯",
+            "href": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/switzerland-qualify"
+          }
+        ],
+        "legacyStrategies": {
+          "conservative": {
+            "title": "保守版: 100 元多比分组合",
+            "notes": [
+              "瑞士强势局可以多买客胜比分。这里为了追利润，舍弃 0:1 这种只保护成本的窄比分，把资金挪给 1:3 和 2:3；如果想更稳，可把 2:3 的 8 元换到 0:1。",
+              "组合盈利概率估计 57% - 78%；盘面去水参考 约 52.7%。按预测区间中点计算，期望净收益约 -7.10 元；其余比分出现时净亏 100 元。"
+            ],
+            "rows": [
+              {
+                "score": "0:2",
+                "role": "客胜锚点",
+                "stake": 24,
+                "odds": 4.4,
+                "payout": 105.6,
+                "netProfit": 5.6,
+                "predictedProbability": {
+                  "low": 0.2,
+                  "high": 0.25,
+                  "mid": 0.225
+                }
+              },
+              {
+                "score": "0:3",
+                "role": "强势客胜",
+                "stake": 18,
+                "odds": 6.1,
+                "payout": 109.8,
+                "netProfit": 9.8,
+                "predictedProbability": {
+                  "low": 0.12,
+                  "high": 0.16,
+                  "mid": 0.14
+                }
+              },
+              {
+                "score": "1:2",
+                "role": "卡塔尔偷一球",
+                "stake": 14,
+                "odds": 7.5,
+                "payout": 105,
+                "netProfit": 5,
+                "predictedProbability": {
+                  "low": 0.09,
+                  "high": 0.12,
+                  "mid": 0.105
+                }
+              },
+              {
+                "score": "1:3",
+                "role": "高赔主线延伸",
+                "stake": 24,
+                "odds": 10,
+                "payout": 240,
+                "netProfit": 140,
+                "predictedProbability": {
+                  "low": 0.08,
+                  "high": 0.12,
+                  "mid": 0.1
+                }
+              },
+              {
+                "score": "0:4",
+                "role": "瑞士大胜",
+                "stake": 12,
+                "odds": 11.5,
+                "payout": 138,
+                "netProfit": 38,
+                "predictedProbability": {
+                  "low": 0.06,
+                  "high": 0.09,
+                  "mid": 0.075
+                }
+              },
+              {
+                "score": "2:3",
+                "role": "极端高收益",
+                "stake": 8,
+                "odds": 35,
+                "payout": 280,
+                "netProfit": 180,
+                "predictedProbability": {
+                  "low": 0.02,
+                  "high": 0.04,
+                  "mid": 0.03
+                }
+              }
+            ]
+          },
+          "aggressive": {
+            "title": "进取版: 100 元两比分组合",
+            "notes": [
+              "只买瑞士最主线 0:2 和卡塔尔偷一球后的 1:3，覆盖少，但赔率收益更集中。",
+              "组合盈利概率估计 28% - 37%；按预测区间中点计算，期望净收益约 -0.70 元；其余比分出现时净亏 100 元。"
+            ],
+            "rows": [
+              {
+                "score": "0:2",
+                "role": "主路径客胜",
+                "stake": 70,
+                "odds": 4.4,
+                "payout": 308,
+                "netProfit": 208,
+                "predictedProbability": {
+                  "low": 0.2,
+                  "high": 0.25,
+                  "mid": 0.225
+                }
+              },
+              {
+                "score": "1:3",
+                "role": "变量高赔延伸",
+                "stake": 30,
+                "odds": 10,
+                "payout": 300,
+                "netProfit": 200,
+                "predictedProbability": {
+                  "low": 0.08,
+                  "high": 0.12,
+                  "mid": 0.1
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "周六006-4",
+      "code": "周六006",
+      "homeTeam": "巴西",
+      "awayTeam": "摩洛哥",
+      "title": "周六006 巴西 vs 摩洛哥",
+      "kickoff": "2026-06-14 06:00",
+      "oddsUpdatedAt": "2026-06-12 12:40:17",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.85
+        },
+        {
+          "score": "1:1",
+          "odds": 6
+        },
+        {
+          "score": "2:0",
+          "odds": 6.5
+        },
+        {
+          "score": "2:1",
+          "odds": 6.8
+        },
+        {
+          "score": "0:0",
+          "odds": 10
+        },
+        {
+          "score": "3:0",
+          "odds": 11
+        },
+        {
+          "score": "3:1",
+          "odds": 11
+        },
+        {
+          "score": "0:1",
+          "odds": 12.5
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.85,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 10,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 12.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 6.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 29,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 6.8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 16,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 14,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 11,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 85,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 95,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 11,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 400,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 62,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 29,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 62,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 27,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 200,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 250,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周六007-5",
+      "code": "周六007",
+      "homeTeam": "海地",
+      "awayTeam": "苏格兰",
+      "title": "周六007 海地 vs 苏格兰",
+      "kickoff": "2026-06-14 09:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "0:1",
+          "odds": 5.4
+        },
+        {
+          "score": "0:2",
+          "odds": 5.5
+        },
+        {
+          "score": "1:2",
+          "odds": 7
+        },
+        {
+          "score": "1:1",
+          "odds": 7.5
+        },
+        {
+          "score": "0:3",
+          "odds": 8
+        },
+        {
+          "score": "0:0",
+          "odds": 11
+        },
+        {
+          "score": "1:3",
+          "odds": 11
+        },
+        {
+          "score": "1:0",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 15,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 11,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 5.4,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 50,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 7.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 5.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 21,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 20,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 7,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 200,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 120,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 8,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 600,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 11,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 32,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 700,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 16,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 450,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 23,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 450,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 40,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 150,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 450,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周六008-6",
+      "code": "周六008",
+      "homeTeam": "澳大利亚",
+      "awayTeam": "土耳其",
+      "title": "周六008 澳大利亚 vs 土耳其",
+      "kickoff": "2026-06-14 12:00",
+      "oddsUpdatedAt": "2026-06-12 12:42:30",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "0:1",
+          "odds": 5.7
+        },
+        {
+          "score": "1:1",
+          "odds": 6.2
+        },
+        {
+          "score": "0:2",
+          "odds": 6.5
+        },
+        {
+          "score": "1:2",
+          "odds": 6.8
+        },
+        {
+          "score": "0:0",
+          "odds": 9.5
+        },
+        {
+          "score": "0:3",
+          "odds": 11.5
+        },
+        {
+          "score": "1:0",
+          "odds": 11.5
+        },
+        {
+          "score": "1:3",
+          "odds": 12
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 11.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 9.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 5.7,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 28,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6.2,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 6.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 16,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 6.8,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 100,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 11.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 52,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 600,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 12,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 63,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 29,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 300,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 27,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 250,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 30,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 300,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 900,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 700,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 90,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 800,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 300,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周日009-7",
+      "code": "周日009",
+      "homeTeam": "德国",
+      "awayTeam": "库拉索",
+      "title": "周日009 德国 vs 库拉索",
+      "kickoff": "2026-06-15 01:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "胜其他",
+          "odds": 3.75
+        },
+        {
+          "score": "3:0",
+          "odds": 5.5
+        },
+        {
+          "score": "4:0",
+          "odds": 5.75
+        },
+        {
+          "score": "5:0",
+          "odds": 7
+        },
+        {
+          "score": "2:0",
+          "odds": 7.25
+        },
+        {
+          "score": "3:1",
+          "odds": 13
+        },
+        {
+          "score": "1:0",
+          "odds": 14
+        },
+        {
+          "score": "4:1",
+          "odds": 14
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 55,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 7.25,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 27,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 15,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 50,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 110,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 5.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 200,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 900,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 13,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 900,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 5.75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 18,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 65,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 3.75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 900,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周日010-8",
+      "code": "周日010",
+      "homeTeam": "荷兰",
+      "awayTeam": "日本",
+      "title": "周日010 荷兰 vs 日本",
+      "kickoff": "2026-06-15 04:00",
+      "oddsUpdatedAt": "2026-06-12 12:45:20",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:1",
+          "odds": 6
+        },
+        {
+          "score": "1:0",
+          "odds": 6.5
+        },
+        {
+          "score": "2:1",
+          "odds": 7
+        },
+        {
+          "score": "2:0",
+          "odds": 7.5
+        },
+        {
+          "score": "0:0",
+          "odds": 10
+        },
+        {
+          "score": "0:1",
+          "odds": 10.5
+        },
+        {
+          "score": "1:2",
+          "odds": 11.5
+        },
+        {
+          "score": "3:1",
+          "odds": 13.5
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 6.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 10,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 10.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 7.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 21,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 14,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 11.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 65,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 13.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 300,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 40,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 27,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 45,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 33,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 34,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 125,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 150,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 95,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 110,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 220,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周日011-9",
+      "code": "周日011",
+      "homeTeam": "科特迪瓦",
+      "awayTeam": "厄瓜多尔",
+      "title": "周日011 科特迪瓦 vs 厄瓜多尔",
+      "kickoff": "2026-06-15 07:00",
+      "oddsUpdatedAt": "2026-06-12 12:48:40",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:1",
+          "odds": 5
+        },
+        {
+          "score": "0:1",
+          "odds": 5.2
+        },
+        {
+          "score": "0:0",
+          "odds": 6
+        },
+        {
+          "score": "1:0",
+          "odds": 7
+        },
+        {
+          "score": "1:2",
+          "odds": 8.25
+        },
+        {
+          "score": "0:2",
+          "odds": 8.65
+        },
+        {
+          "score": "2:1",
+          "odds": 11
+        },
+        {
+          "score": "2:0",
+          "odds": 14.5
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 6,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 5.2,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 14.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 8.65,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 11,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 17,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 8.25,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 50,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 130,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 21,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 40,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 800,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 22,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 45,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 200,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 300,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 700,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 400,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 250,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周日012-10",
+      "code": "周日012",
+      "homeTeam": "瑞典",
+      "awayTeam": "突尼斯",
+      "title": "周日012 瑞典 vs 突尼斯",
+      "kickoff": "2026-06-15 10:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.6
+        },
+        {
+          "score": "1:1",
+          "odds": 5.7
+        },
+        {
+          "score": "2:1",
+          "odds": 7
+        },
+        {
+          "score": "2:0",
+          "odds": 7.5
+        },
+        {
+          "score": "0:0",
+          "odds": 8
+        },
+        {
+          "score": "0:1",
+          "odds": 9.5
+        },
+        {
+          "score": "1:2",
+          "odds": 12.5
+        },
+        {
+          "score": "3:0",
+          "odds": 14
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.6,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 8,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 9.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 7.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 5.7,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 21,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 16,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 12.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 100,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 70,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 14.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 600,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 45,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 32,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 55,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 35,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 40,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 250,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 200,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 700,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周一013-11",
+      "code": "周一013",
+      "homeTeam": "西班牙",
+      "awayTeam": "佛得角",
+      "title": "周一013 西班牙 vs 佛得角",
+      "kickoff": "2026-06-16 00:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "2:0",
+          "odds": 5.6
+        },
+        {
+          "score": "3:0",
+          "odds": 5.7
+        },
+        {
+          "score": "4:0",
+          "odds": 6.9
+        },
+        {
+          "score": "胜其他",
+          "odds": 7.8
+        },
+        {
+          "score": "1:0",
+          "odds": 8.2
+        },
+        {
+          "score": "2:1",
+          "odds": 9
+        },
+        {
+          "score": "3:1",
+          "odds": 10
+        },
+        {
+          "score": "5:0",
+          "odds": 10.5
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 8.2,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 28,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 5.6,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 16,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 9,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 40,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 5.7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 200,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 10,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 700,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 40,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 6.9,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 14,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 10.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 23,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 7.8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周一014-12",
+      "code": "周一014",
+      "homeTeam": "比利时",
+      "awayTeam": "埃及",
+      "title": "周一014 比利时 vs 埃及",
+      "kickoff": "2026-06-16 03:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.65
+        },
+        {
+          "score": "2:0",
+          "odds": 6
+        },
+        {
+          "score": "1:1",
+          "odds": 6.5
+        },
+        {
+          "score": "2:1",
+          "odds": 6.75
+        },
+        {
+          "score": "0:0",
+          "odds": 10
+        },
+        {
+          "score": "3:0",
+          "odds": 10
+        },
+        {
+          "score": "3:1",
+          "odds": 11.5
+        },
+        {
+          "score": "0:1",
+          "odds": 13.5
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.65,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 10,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 13.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 6,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 30,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 6.75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 18,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 15,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 10,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 100,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 11.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 500,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 21,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 29,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 900,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 50,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 450,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周一015-13",
+      "code": "周一015",
+      "homeTeam": "沙特",
+      "awayTeam": "乌拉圭",
+      "title": "周一015 沙特 vs 乌拉圭",
+      "kickoff": "2026-06-16 06:00",
+      "oddsUpdatedAt": "2026-06-12 10:16:48",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "0:2",
+          "odds": 5.3
+        },
+        {
+          "score": "0:1",
+          "odds": 5.5
+        },
+        {
+          "score": "1:2",
+          "odds": 7
+        },
+        {
+          "score": "0:3",
+          "odds": 7.5
+        },
+        {
+          "score": "1:1",
+          "odds": 7.75
+        },
+        {
+          "score": "0:0",
+          "odds": 11
+        },
+        {
+          "score": "1:3",
+          "odds": 11
+        },
+        {
+          "score": "0:4",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 16,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 11,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 5.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 48,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 7.75,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 5.3,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 21,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 24,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 7,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 250,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 150,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 7.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 800,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 11,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 15,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 450,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 23,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 450,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 30,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周一016-14",
+      "code": "周一016",
+      "homeTeam": "伊朗",
+      "awayTeam": "新西兰",
+      "title": "周一016 伊朗 vs 新西兰",
+      "kickoff": "2026-06-16 09:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.25
+        },
+        {
+          "score": "1:1",
+          "odds": 6
+        },
+        {
+          "score": "2:0",
+          "odds": 6
+        },
+        {
+          "score": "2:1",
+          "odds": 6.7
+        },
+        {
+          "score": "0:0",
+          "odds": 8.5
+        },
+        {
+          "score": "3:0",
+          "odds": 11
+        },
+        {
+          "score": "0:1",
+          "odds": 12
+        },
+        {
+          "score": "3:1",
+          "odds": 12
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.25,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 8.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 12,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 6,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 30,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 6.7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 19,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 15,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 11,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 125,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 12,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 500,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 70,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 35,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 26,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 35,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 900,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 250,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 450,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周二017-15",
+      "code": "周二017",
+      "homeTeam": "法国",
+      "awayTeam": "塞内加尔",
+      "title": "周二017 法国 vs 塞内加尔",
+      "kickoff": "2026-06-17 03:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.5
+        },
+        {
+          "score": "2:0",
+          "odds": 5.9
+        },
+        {
+          "score": "1:1",
+          "odds": 6.8
+        },
+        {
+          "score": "2:1",
+          "odds": 6.8
+        },
+        {
+          "score": "3:0",
+          "odds": 8.5
+        },
+        {
+          "score": "0:0",
+          "odds": 10.5
+        },
+        {
+          "score": "3:1",
+          "odds": 11
+        },
+        {
+          "score": "0:1",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 10.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 15,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 5.9,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6.8,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 40,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 6.8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 20,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 17,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 8.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 125,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 150,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 11,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 500,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 80,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 90,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 17,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 26,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 50,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 900,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 800,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 45,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周二018-16",
+      "code": "周二018",
+      "homeTeam": "伊拉克",
+      "awayTeam": "挪威",
+      "title": "周二018 伊拉克 vs 挪威",
+      "kickoff": "2026-06-17 06:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "0:2",
+          "odds": 5.6
+        },
+        {
+          "score": "0:3",
+          "odds": 6.5
+        },
+        {
+          "score": "0:1",
+          "odds": 6.6
+        },
+        {
+          "score": "1:2",
+          "odds": 7.75
+        },
+        {
+          "score": "1:3",
+          "odds": 9
+        },
+        {
+          "score": "0:4",
+          "odds": 10
+        },
+        {
+          "score": "1:1",
+          "odds": 10
+        },
+        {
+          "score": "负其他",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 18,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 6.6,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 10,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 5.6,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 29,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 26,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 7.75,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 350,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 125,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 6.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 500,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 9,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 900,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 10,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 16,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 50,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 19,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 30,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 15,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周二019-17",
+      "code": "周二019",
+      "homeTeam": "阿根廷",
+      "awayTeam": "阿尔及利",
+      "title": "周二019 阿根廷 vs 阿尔及利",
+      "kickoff": "2026-06-17 09:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.2
+        },
+        {
+          "score": "2:0",
+          "odds": 5.2
+        },
+        {
+          "score": "2:1",
+          "odds": 7
+        },
+        {
+          "score": "1:1",
+          "odds": 7.5
+        },
+        {
+          "score": "3:0",
+          "odds": 8
+        },
+        {
+          "score": "0:0",
+          "odds": 11
+        },
+        {
+          "score": "3:1",
+          "odds": 11
+        },
+        {
+          "score": "4:0",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.2,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 11,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 16,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 5.2,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 7.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 50,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 24,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 25,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 150,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 11,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 800,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 15,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 700,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 22,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 35,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 40,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周二020-18",
+      "code": "周二020",
+      "homeTeam": "奥地利",
+      "awayTeam": "约旦",
+      "title": "周二020 奥地利 vs 约旦",
+      "kickoff": "2026-06-17 12:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "2:0",
+          "odds": 5.7
+        },
+        {
+          "score": "1:0",
+          "odds": 6
+        },
+        {
+          "score": "2:1",
+          "odds": 7
+        },
+        {
+          "score": "3:0",
+          "odds": 7.5
+        },
+        {
+          "score": "1:1",
+          "odds": 8.5
+        },
+        {
+          "score": "3:1",
+          "odds": 10
+        },
+        {
+          "score": "4:0",
+          "odds": 13
+        },
+        {
+          "score": "0:0",
+          "odds": 14
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 6,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 14,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 19,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 5.7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 8.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 22,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 25,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 7.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 120,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 250,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 10,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 700,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 26,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 90,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 13,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 700,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 18,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 50,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 28,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 45,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 23,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周三021-19",
+      "code": "周三021",
+      "homeTeam": "葡萄牙",
+      "awayTeam": "刚果金",
+      "title": "周三021 葡萄牙 vs 刚果金",
+      "kickoff": "2026-06-18 01:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "2:0",
+          "odds": 5.2
+        },
+        {
+          "score": "1:0",
+          "odds": 5.8
+        },
+        {
+          "score": "3:0",
+          "odds": 6.5
+        },
+        {
+          "score": "2:1",
+          "odds": 7.5
+        },
+        {
+          "score": "1:1",
+          "odds": 10
+        },
+        {
+          "score": "3:1",
+          "odds": 10
+        },
+        {
+          "score": "4:0",
+          "odds": 10.5
+        },
+        {
+          "score": "0:0",
+          "odds": 15
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 15,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 26,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 5.2,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 10,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 90,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 29,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 6.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 175,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 10,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 700,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 150,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 10.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 17,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 21,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 35,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 18,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周三022-20",
+      "code": "周三022",
+      "homeTeam": "英格兰",
+      "awayTeam": "克罗地亚",
+      "title": "周三022 英格兰 vs 克罗地亚",
+      "kickoff": "2026-06-18 04:00",
+      "oddsUpdatedAt": "2026-06-12 11:35:05",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.5
+        },
+        {
+          "score": "1:1",
+          "odds": 6
+        },
+        {
+          "score": "2:0",
+          "odds": 6.4
+        },
+        {
+          "score": "2:1",
+          "odds": 7
+        },
+        {
+          "score": "0:0",
+          "odds": 9.5
+        },
+        {
+          "score": "0:1",
+          "odds": 11
+        },
+        {
+          "score": "3:0",
+          "odds": 11.5
+        },
+        {
+          "score": "3:1",
+          "odds": 13
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 9.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 11,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 6.4,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 6,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 28,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 17,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 14,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 11.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 100,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 100,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 13,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 400,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 60,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 70,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 25,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 400,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 250,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 75,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 1000,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 90,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 700,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 200,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 700,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 60,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 350,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周三023-21",
+      "code": "周三023",
+      "homeTeam": "加纳",
+      "awayTeam": "巴拿马",
+      "title": "周三023 加纳 vs 巴拿马",
+      "kickoff": "2026-06-18 07:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "1:0",
+          "odds": 5.5
+        },
+        {
+          "score": "1:1",
+          "odds": 5.5
+        },
+        {
+          "score": "2:1",
+          "odds": 7.5
+        },
+        {
+          "score": "0:0",
+          "odds": 8
+        },
+        {
+          "score": "2:0",
+          "odds": 8
+        },
+        {
+          "score": "0:1",
+          "odds": 9
+        },
+        {
+          "score": "1:2",
+          "odds": 11
+        },
+        {
+          "score": "2:2",
+          "odds": 16
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 5.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 8,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 9,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 8,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 5.5,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 18,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 7.5,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 16,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 11,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 16,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 100,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 55,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 16,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 600,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 30,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 50,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 45,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 45,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 150,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 200,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 150,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 600,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 175,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 500,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 300,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 700,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 100,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 300,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    },
+    {
+      "id": "周三024-22",
+      "code": "周三024",
+      "homeTeam": "乌兹别克",
+      "awayTeam": "哥伦比亚",
+      "title": "周三024 乌兹别克 vs 哥伦比亚",
+      "kickoff": "2026-06-18 10:00",
+      "oddsUpdatedAt": "2026-06-08 10:02:25",
+      "featured": false,
+      "topScores": [
+        {
+          "score": "0:1",
+          "odds": 5.2
+        },
+        {
+          "score": "0:2",
+          "odds": 5.2
+        },
+        {
+          "score": "1:2",
+          "odds": 7
+        },
+        {
+          "score": "0:3",
+          "odds": 7.5
+        },
+        {
+          "score": "1:1",
+          "odds": 8
+        },
+        {
+          "score": "0:0",
+          "odds": 11
+        },
+        {
+          "score": "1:3",
+          "odds": 11
+        },
+        {
+          "score": "0:4",
+          "odds": 14
+        }
+      ],
+      "oddsEntries": [
+        {
+          "score": "1:0",
+          "odds": 16,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:0",
+          "odds": 11,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:1",
+          "odds": 5.2,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:0",
+          "odds": 50,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:1",
+          "odds": 8,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:2",
+          "odds": 5.2,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "2:1",
+          "odds": 25,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:2",
+          "odds": 25,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:2",
+          "odds": 7,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:0",
+          "odds": 250,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "3:3",
+          "odds": 150,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "0:3",
+          "odds": 7.5,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:1",
+          "odds": 120,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "平其他",
+          "odds": 800,
+          "outcomeType": "draw",
+          "highlight": null
+        },
+        {
+          "score": "1:3",
+          "odds": 11,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "3:2",
+          "odds": 120,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:3",
+          "odds": 35,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:0",
+          "odds": 600,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:4",
+          "odds": 14,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:1",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:4",
+          "odds": 23,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "4:2",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:4",
+          "odds": 70,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:0",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "0:5",
+          "odds": 30,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:1",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "1:5",
+          "odds": 55,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "5:2",
+          "odds": 1000,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "2:5",
+          "odds": 175,
+          "outcomeType": "away",
+          "highlight": null
+        },
+        {
+          "score": "胜其他",
+          "odds": 500,
+          "outcomeType": "home",
+          "highlight": null
+        },
+        {
+          "score": "负其他",
+          "odds": 40,
+          "outcomeType": "away",
+          "highlight": null
+        }
+      ],
+      "analysis": null
+    }
+  ]
+}

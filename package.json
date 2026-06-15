@@ -1,0 +1,45 @@
+{
+  "name": "daily-predict-app",
+  "private": true,
+  "version": "0.4.0",
+  "type": "module",
+  "scripts": {
+    "import:legacy": "node ./scripts/import-legacy-html.mjs",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "verify:pwa": "node ./scripts/verify-pwa.mjs",
+    "preview": "vite preview",
+    "android:sync": "npm run build && node node_modules/@capacitor/cli/bin/capacitor sync android",
+    "android:open": "npm run android:sync && node node_modules/@capacitor/cli/bin/capacitor open android",
+    "android:apk": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android-debug.ps1",
+    "android:release": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-android-release.ps1",
+    "android:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-android-debug.ps1",
+    "android:install-release": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-android-release.ps1"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.104.1",
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0",
+    "@capacitor/local-notifications": "^8.2.0",
+    "cheerio": "^1.2.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vercel/node": "^5.8.17",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12"
+  }
+}

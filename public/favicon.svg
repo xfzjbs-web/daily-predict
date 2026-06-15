@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="每日预测">
+  <rect width="512" height="512" rx="112" fill="#143d79"/>
+  <rect x="74" y="96" width="364" height="320" rx="42" fill="#fff"/>
+  <rect x="74" y="96" width="364" height="92" rx="42" fill="#eaf2ff"/>
+  <path fill="#143d79" d="M132 150h248v28H132z"/>
+  <path fill="#143d79" d="M142 236h98v34h-98zm0 68h98v34h-98zm130-68h98v34h-98zm0 68h98v34h-98z"/>
+  <circle cx="164" cy="142" r="18" fill="#147a48"/>
+  <circle cx="256" cy="142" r="18" fill="#147a48"/>
+  <circle cx="348" cy="142" r="18" fill="#147a48"/>
+  <path fill="#b13e38" d="M370 355c29 0 52-23 52-52s-23-52-52-52-52 23-52 52 23 52 52 52Zm0-30c-12 0-22-10-22-22s10-22 22-22 22 10 22 22-10 22-22 22Z"/>
+</svg>
