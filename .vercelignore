@@ -1,0 +1,6 @@
+.toolchains
+android
+node_modules
+dist
+.signing
+*.local

@@ -1,12 +1,15 @@
-import { useCallback, useEffect, useState } from 'react'
-import { ExecutionSlipCard } from './components/ExecutionSlipCard.tsx'
-import { MatchCard } from './components/MatchCard.tsx'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { APP_VERSION, BUILD_DATE, CHANGELOG } from './version.ts'
+import { MatchAnalysisCard } from './components/MatchAnalysisCard.tsx'
 import { PerformanceReviewCard } from './components/PerformanceReviewCard.tsx'
 import { RecentResultsCard } from './components/RecentResultsCard.tsx'
-import { RecommendationCard } from './components/RecommendationCard.tsx'
 import { filterMatchesByYear } from './data/current-year-context.ts'
 import { legacyData } from './data/index.ts'
-import { formatCurrency, formatSignedCurrency } from './lib/format.ts'
+import {
+  fetchServerAnalysis,
+  type BatchAnalysisState,
+  type ClaudeResult,
+} from './lib/aiAnalysis.ts'
 import {
   getPrimaryDateKey,
   getTodayKey,
@@ -23,13 +26,6 @@ import {
   settleRecommendationSnapshots,
 } from './lib/recommendationHistory.ts'
 import {
-  cancelMatchReminders,
-  checkMatchReminderPermission,
-  requestMatchReminderPermission,
-  scheduleMatchReminders,
-  supportsMatchReminders,
-} from './lib/matchReminders.ts'
-import {
   readCachedMatches,
   readCachedResults,
   readPreferences,
@@ -39,10 +35,13 @@ import {
   writePreferences,
   writeRecommendationSnapshots,
 } from './lib/storage.ts'
+import { loadConfirmedBuys, removeConfirmedBuy, settleConfirmedBuys } from './lib/confirmedBuys.ts'
 import { buildMatchViewModels } from './lib/strategy.ts'
-import type { MatchRecord, MatchResultRecord, StrategyKind } from './lib/types.ts'
+import type { MatchRecord, MatchResultRecord } from './lib/types.ts'
 
-const QUICK_BUDGETS = [50, 100, 200]
+import { formatSignedCurrency } from './lib/format.ts'
+import type { ConfirmedSettlement } from './lib/confirmedBuys.ts'
+
 const REFRESH_INTERVAL_MS = 5 * 60 * 1000
 const RESULT_REFRESH_INTERVAL_MS = 15 * 60 * 1000
 const ANALYSIS_YEAR = new Date().getFullYear()
@@ -50,31 +49,101 @@ const ANALYSIS_YEAR = new Date().getFullYear()
 type DataStatus = 'fallback' | 'cached' | 'refreshing' | 'live' | 'error'
 type TabKind = 'today' | 'schedule' | 'review' | 'settings'
 
-interface InstallPromptEvent extends Event {
-  prompt: () => Promise<void>
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }>
+function ConfirmedBuyReview({
+  settlements,
+  onBuyRemoved,
+}: {
+  settlements: ConfirmedSettlement[]
+  onBuyRemoved: () => void
+}) {
+  const totalNet = settlements.reduce((s, r) => s + r.netResult, 0)
+  const totalStake = settlements.reduce((s, r) => s + r.buy.totalStake, 0)
+  const hitCount = settlements.filter((r) => r.hitPick).length
+  const roi = totalStake > 0 ? totalNet / totalStake : 0
+
+  return (
+    <div className="review-section">
+      <div className="review-title">真实买入复盘</div>
+      {settlements.length === 0 ? (
+        <div className="review-empty">
+          还没有已结算的买入记录。在今日 tab 点击「确认买入」，比赛结束后自动结算。
+        </div>
+      ) : (
+        <>
+          <div className="review-stats">
+            <div className="review-stat">
+              <span>已结算</span>
+              <strong>{settlements.length} 场</strong>
+            </div>
+            <div className="review-stat">
+              <span>命中率</span>
+              <strong>{hitCount}/{settlements.length}</strong>
+            </div>
+            <div className="review-stat">
+              <span>净盈亏</span>
+              <strong className={totalNet >= 0 ? 'text-green' : 'text-red'}>{formatSignedCurrency(totalNet)}</strong>
+            </div>
+            <div className="review-stat">
+              <span>ROI</span>
+              <strong className={roi >= 0 ? 'text-green' : 'text-red'}>{(roi * 100).toFixed(1)}%</strong>
+            </div>
+          </div>
+          <div className="review-list">
+            {settlements.map(({ buy, result, hitPick, netResult }) => (
+              <div key={buy.matchId} className={`review-item ${hitPick ? 'hit' : 'miss'}`}>
+                <div className="review-item-main">
+                  <span className="review-item-teams">{buy.homeTeam} vs {buy.awayTeam}</span>
+                  <span className={`review-item-result ${hitPick ? 'text-green' : 'text-red'}`}>
+                    {result.finalScore} {hitPick ? '✓ 命中' : '✗ 未中'}
+                  </span>
+                </div>
+                <div className="review-item-picks">
+                  {buy.picks.map((p) => (
+                    <span
+                      key={p.score}
+                      className={`review-pick-chip ${p.score === result.finalScore ? 'hit-chip' : ''}`}
+                    >
+                      {p.score}
+                    </span>
+                  ))}
+                  <span className={`review-net ${netResult >= 0 ? 'text-green' : 'text-red'}`}>
+                    {formatSignedCurrency(netResult)}
+                  </span>
+                </div>
+                <div className="review-item-meta">
+                  {buy.source === 'claude' ? 'Claude调整' : '算法'} · {buy.strategy === 'conservative' ? '保守' : '进取'} · {buy.matchDate}
+                  <button
+                    type="button"
+                    className="review-remove-btn"
+                    onClick={() => { removeConfirmedBuy(buy.matchId); onBuyRemoved() }}
+                  >
+                    删除
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
 function withLegacySource(matches: MatchRecord[]) {
-  return matches.map((match) => ({
-    ...match,
-    leagueName: match.leagueName ?? '世界杯',
-    source: match.source ?? 'legacy',
-  }))
+  return matches.map((m) => ({ ...m, leagueName: m.leagueName ?? '世界杯', source: m.source ?? 'legacy' as const }))
 }
 
-function getInitialMatches(cachedMatches: MatchRecord[] | undefined) {
-  const cachedCurrentYearMatches = cachedMatches ? filterMatchesByYear(cachedMatches, ANALYSIS_YEAR) : []
-  if (cachedCurrentYearMatches.length > 0) return cachedCurrentYearMatches
-  return filterMatchesByYear(withLegacySource(legacyData.matches), ANALYSIS_YEAR)
+function getInitialMatches(cached: MatchRecord[] | undefined) {
+  const cy = cached ? filterMatchesByYear(cached, ANALYSIS_YEAR) : []
+  return cy.length > 0 ? cy : filterMatchesByYear(withLegacySource(legacyData.matches), ANALYSIS_YEAR)
 }
 
-function hasCurrentYearCache(cachedMatches: MatchRecord[] | undefined) {
-  return cachedMatches ? filterMatchesByYear(cachedMatches, ANALYSIS_YEAR).length > 0 : false
+function hasCurrentYearCache(cached: MatchRecord[] | undefined) {
+  return cached ? filterMatchesByYear(cached, ANALYSIS_YEAR).length > 0 : false
 }
 
 function filterResultsByYear(results: MatchResultRecord[] | undefined) {
-  return (results ?? []).filter((result) => Number(result.matchDate.slice(0, 4)) === ANALYSIS_YEAR)
+  return (results ?? []).filter((r) => Number(r.matchDate.slice(0, 4)) === ANALYSIS_YEAR)
 }
 
 function formatRefreshTime(value: string | null) {
@@ -83,248 +152,199 @@ function formatRefreshTime(value: string | null) {
 }
 
 function formatDateLabel(dateKey: string) {
-  return new Intl.DateTimeFormat('zh-CN', { day: 'numeric', month: 'numeric', weekday: 'short' }).format(
+  return new Intl.DateTimeFormat('zh-CN', { month: 'numeric', day: 'numeric', weekday: 'short' }).format(
     new Date(`${dateKey}T12:00:00`),
   )
 }
 
-function dateRoleLabel(dateKey: string, primaryDateKey: string) {
-  const todayKey = getTodayKey()
-  const tomorrowKey = getTomorrowKey()
-  if (dateKey < todayKey) return '历史'
-  if (dateKey === todayKey) return '今日'
-  if (dateKey === tomorrowKey) return '明日'
-  return dateKey === primaryDateKey ? '最近' : '未来'
+function dateRoleLabel(dateKey: string) {
+  const today = getTodayKey()
+  const tomorrow = getTomorrowKey()
+  if (dateKey < today) return '历史'
+  if (dateKey === today) return '今日'
+  if (dateKey === tomorrow) return '明日'
+  return '未来'
 }
 
 function App() {
   const [cached] = useState(readCachedMatches)
   const [cachedResults] = useState(readCachedResults)
-  const [initialPreferences] = useState(readPreferences)
-  const [initialRecommendationSnapshots] = useState(readRecommendationSnapshots)
-  const hasUsableCache = hasCurrentYearCache(cached?.matches)
-  const initialMatches = getInitialMatches(cached?.matches)
-  const initialResults = filterResultsByYear(cachedResults?.results)
-  const [matches, setMatches] = useState<MatchRecord[]>(initialMatches)
-  const [results, setResults] = useState<MatchResultRecord[]>(initialResults)
-  const [recommendationSnapshots, setRecommendationSnapshots] = useState(initialRecommendationSnapshots)
-  const [budgetInput, setBudgetInput] = useState(String(initialPreferences.budget))
-  const [autoRefresh, setAutoRefresh] = useState(initialPreferences.autoRefresh)
-  const [remindersEnabled, setRemindersEnabled] = useState(initialPreferences.remindersEnabled)
-  const [reminderMinutes, setReminderMinutes] = useState(initialPreferences.reminderMinutes)
-  const [scheduledReminderCount, setScheduledReminderCount] = useState(0)
-  const [reminderStatus, setReminderStatus] = useState('开启后会为尚未开赛的比赛安排提醒。')
-  const [executionMode, setExecutionMode] = useState<StrategyKind>(initialPreferences.executionMode)
-  const [selectedDateKey, setSelectedDateKey] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<TabKind>('today')
-  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
-  const [isStandalone, setIsStandalone] = useState(() => window.matchMedia('(display-mode: standalone)').matches)
-  const [isOnline, setIsOnline] = useState(() => navigator.onLine)
-  const [status, setStatus] = useState<DataStatus>(hasUsableCache ? 'cached' : 'fallback')
-  const [lastRefreshAt, setLastRefreshAt] = useState<string | null>(hasUsableCache ? cached?.updatedAt ?? null : null)
-  const [resultStatus, setResultStatus] = useState<DataStatus>(initialResults.length > 0 ? 'cached' : 'fallback')
-  const [resultsUpdatedAt, setResultsUpdatedAt] = useState<string | null>(
-    initialResults.length > 0 ? cachedResults?.updatedAt ?? null : null,
-  )
-  const [errorMessage, setErrorMessage] = useState('')
+  const [prefs] = useState(readPreferences)
+  const [initialSnapshots] = useState(readRecommendationSnapshots)
 
-  const parsedBudget = Number.parseInt(budgetInput, 10)
-  const budget = Number.isFinite(parsedBudget) && parsedBudget > 0 ? parsedBudget : 100
+  const [matches, setMatches] = useState<MatchRecord[]>(() => getInitialMatches(cached?.matches))
+  const [results, setResults] = useState<MatchResultRecord[]>(() => filterResultsByYear(cachedResults?.results))
+  const [snapshots, setSnapshots] = useState(initialSnapshots)
+  const [budget, setBudget] = useState(prefs.budget)
+  const [budgetInput, setBudgetInput] = useState(String(prefs.budget))
+  const [autoRefresh, setAutoRefresh] = useState(prefs.autoRefresh)
+  const [activeTab, setActiveTab] = useState<TabKind>('today')
+  const [status, setStatus] = useState<DataStatus>(hasCurrentYearCache(cached?.matches) ? 'cached' : 'fallback')
+  const [resultStatus, setResultStatus] = useState<DataStatus>(filterResultsByYear(cachedResults?.results).length > 0 ? 'cached' : 'fallback')
+  const [lastRefreshAt, setLastRefreshAt] = useState<string | null>(cached?.updatedAt ?? null)
+  const [resultsUpdatedAt, setResultsUpdatedAt] = useState<string | null>(cachedResults?.updatedAt ?? null)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [selectedDateKey, setSelectedDateKey] = useState<string | null>(null)
+  const [isOnline, setIsOnline] = useState(() => navigator.onLine)
+  const [updateAvailable, setUpdateAvailable] = useState<string | null>(null)
+
+  // AI analysis state (read-only from server)
+  const [analysisState, setAnalysisState] = useState<BatchAnalysisState>('idle')
+  const [claudeInsights, setClaudeInsights] = useState<Record<string, ClaudeResult>>({})
+  const [analyzedAt, setAnalyzedAt] = useState<string | null>(null)
+
   const matchesByDate = groupMatchesByDate(sortMatchesByKickoff(matches))
   const dateKeys = Object.keys(matchesByDate).sort()
   const primaryDateKey = getPrimaryDateKey(matches)
   const targetDateKey = selectedDateKey && matchesByDate[selectedDateKey] ? selectedDateKey : primaryDateKey
   const targetMatches = sortMatchesByKickoff(matchesByDate[targetDateKey] ?? [])
-  const targetRecommendationMatches = targetMatches.filter((match) => isMatchActionable(match))
-  const nextDayViewModels = buildMatchViewModels(targetRecommendationMatches, budget)
-  const visibleViewModels = buildMatchViewModels(sortMatchesByKickoff(matches), budget)
+  const actionableMatches = targetMatches.filter((m) => isMatchActionable(m))
+  const viewModels = buildMatchViewModels(actionableMatches, budget)
+  const allViewModels = buildMatchViewModels(sortMatchesByKickoff(matches), budget)
+  const settledRecommendations = settleRecommendationSnapshots(snapshots, results)
+  const [confirmedBuysTick, setConfirmedBuysTick] = useState(0)
+  const confirmedSettlements = useMemo(
+    () => settleConfirmedBuys(loadConfirmedBuys(), results),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [results, confirmedBuysTick],
+  )
   const isRefreshing = status === 'refreshing' || resultStatus === 'refreshing'
-  const nativeReminderAvailable = supportsMatchReminders()
-  const conservativeExpected = nextDayViewModels.reduce((sum, vm) => sum + vm.conservative.expectedNet, 0)
-  const aggressiveExpected = nextDayViewModels.reduce((sum, vm) => sum + vm.aggressive.expectedNet, 0)
-  const settledRecommendations = settleRecommendationSnapshots(recommendationSnapshots, results)
-  const excludedTargetCount = targetMatches.length - targetRecommendationMatches.length
+
+  // Load analysis from server when date changes
+  useEffect(() => {
+    setClaudeInsights({})
+    setAnalyzedAt(null)
+    setAnalysisState('idle')
+
+    void fetchServerAnalysis(targetDateKey).then((server) => {
+      if (server.found && server.insights) {
+        setClaudeInsights(server.insights as Record<string, ClaudeResult>)
+        setAnalyzedAt(server.analyzedAt ?? null)
+        setAnalysisState('done')
+      }
+    })
+  }, [targetDateKey])
 
   const refreshOdds = useCallback(async (signal?: AbortSignal) => {
     setStatus('refreshing')
     setErrorMessage('')
     try {
-      const liveMatches = await fetchSportteryMatches(legacyData, signal)
-      const currentYearMatches = filterMatchesByYear(liveMatches, ANALYSIS_YEAR)
-      if (currentYearMatches.length === 0) throw new Error(`${ANALYSIS_YEAR} 年暂无可用赛程，已保留本地数据`)
-      const updatedAt = writeCachedMatches(currentYearMatches)
-      setMatches(currentYearMatches)
+      const live = await fetchSportteryMatches(legacyData, signal)
+      const cy = filterMatchesByYear(live, ANALYSIS_YEAR)
+      if (cy.length === 0) throw new Error(`${ANALYSIS_YEAR} 年暂无可用赛程`)
+      const updatedAt = writeCachedMatches(cy)
+      setMatches(cy)
       setLastRefreshAt(updatedAt)
       setStatus('live')
-    } catch (error) {
+    } catch (err) {
       if (signal?.aborted) return
-      setStatus((current) => (current === 'refreshing' ? 'error' : current))
-      setErrorMessage(error instanceof Error ? error.message : '赔率刷新失败')
+      setStatus((s) => s === 'refreshing' ? 'error' : s)
+      setErrorMessage(err instanceof Error ? err.message : '赔率刷新失败')
     }
   }, [])
 
   const refreshResults = useCallback(async (signal?: AbortSignal) => {
     setResultStatus('refreshing')
     try {
-      const liveResults = await fetchSportteryResults(ANALYSIS_YEAR, signal)
-      const updatedAt = writeCachedResults(liveResults)
-      setResults(liveResults)
+      const live = await fetchSportteryResults(ANALYSIS_YEAR, signal)
+      const updatedAt = writeCachedResults(live)
+      setResults(live)
       setResultsUpdatedAt(updatedAt)
       setResultStatus('live')
-    } catch (error) {
+    } catch (err) {
       if (signal?.aborted) return
       setResultStatus('error')
-      setErrorMessage((current) => current || (error instanceof Error ? error.message : '赛果刷新失败'))
     }
   }, [])
 
+  // Initial load
   useEffect(() => {
-    const controller = new AbortController()
-    const timeoutId = window.setTimeout(() => {
-      void refreshOdds(controller.signal)
-      void refreshResults(controller.signal)
-    }, 0)
-    return () => { window.clearTimeout(timeoutId); controller.abort() }
+    const ac = new AbortController()
+    void refreshOdds(ac.signal)
+    void refreshResults(ac.signal)
+    return () => ac.abort()
   }, [refreshOdds, refreshResults])
 
+  // Auto refresh
   useEffect(() => {
     if (!autoRefresh) return
-    const intervalId = window.setInterval(() => void refreshOdds(), REFRESH_INTERVAL_MS)
-    return () => window.clearInterval(intervalId)
-  }, [autoRefresh, refreshOdds])
-
-  useEffect(() => {
-    if (!autoRefresh) return
-    const intervalId = window.setInterval(() => void refreshResults(), RESULT_REFRESH_INTERVAL_MS)
-    return () => window.clearInterval(intervalId)
-  }, [autoRefresh, refreshResults])
-
-  useEffect(() => {
-    const refreshOnResume = () => {
-      if (document.visibilityState === 'visible' && autoRefresh && navigator.onLine) {
-        void refreshOdds()
-        void refreshResults()
-      }
-    }
-    document.addEventListener('visibilitychange', refreshOnResume)
-    return () => document.removeEventListener('visibilitychange', refreshOnResume)
+    const t1 = setInterval(() => void refreshOdds(), REFRESH_INTERVAL_MS)
+    const t2 = setInterval(() => void refreshResults(), RESULT_REFRESH_INTERVAL_MS)
+    return () => { clearInterval(t1); clearInterval(t2) }
   }, [autoRefresh, refreshOdds, refreshResults])
 
+  // Visibility refresh
   useEffect(() => {
-    writePreferences({ budget, autoRefresh, executionMode, remindersEnabled, reminderMinutes })
-  }, [autoRefresh, budget, executionMode, reminderMinutes, remindersEnabled])
-
-  useEffect(() => {
-    if (!nativeReminderAvailable || !remindersEnabled) return
-    let active = true
-    const syncReminders = async () => {
-      try {
-        const permission = await checkMatchReminderPermission()
-        if (permission !== 'granted') {
-          if (active) { setRemindersEnabled(false); setScheduledReminderCount(0); setReminderStatus('通知权限未开启。') }
-          return
-        }
-        const count = await scheduleMatchReminders(matches, reminderMinutes)
-        if (active) {
-          setScheduledReminderCount(count)
-          setReminderStatus(count > 0 ? `已安排 ${count} 场提醒（提前 ${reminderMinutes} 分钟）。` : '当前没有满足时间的未开赛比赛。')
-        }
-      } catch {
-        if (active) { setScheduledReminderCount(0); setReminderStatus('提醒同步失败，请稍后重新开启。') }
+    const handler = () => {
+      if (document.visibilityState === 'visible' && autoRefresh && navigator.onLine) {
+        void refreshOdds(); void refreshResults()
       }
     }
-    void syncReminders()
-    return () => { active = false }
-  }, [matches, nativeReminderAvailable, reminderMinutes, remindersEnabled])
+    document.addEventListener('visibilitychange', handler)
+    return () => document.removeEventListener('visibilitychange', handler)
+  }, [autoRefresh, refreshOdds, refreshResults])
 
+  // Online/offline
   useEffect(() => {
-    const resultKeys = new Set(results.map((result) => `${result.matchDate}|${result.code}`))
-    const historicalMatches = withLegacySource(legacyData.matches).filter((match) =>
-      resultKeys.has(`${match.kickoff.slice(0, 10)}|${match.code}`),
+    const on = () => setIsOnline(true)
+    const off = () => setIsOnline(false)
+    window.addEventListener('online', on)
+    window.addEventListener('offline', off)
+    return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off) }
+  }, [])
+
+  // SW update detection
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const { version } = (e as CustomEvent<{ version: string }>).detail
+      setUpdateAvailable(version)
+    }
+    window.addEventListener('app-updated', handler)
+    return () => window.removeEventListener('app-updated', handler)
+  }, [])
+
+  // Preferences
+  useEffect(() => {
+    writePreferences({ budget, autoRefresh, executionMode: 'conservative', remindersEnabled: false, reminderMinutes: 30 })
+  }, [budget, autoRefresh])
+
+  // Snapshot updates
+  useEffect(() => {
+    const resultKeys = new Set(results.map((r) => `${r.matchDate}|${r.code}`))
+    const historical = withLegacySource(legacyData.matches).filter((m) =>
+      resultKeys.has(`${m.kickoff.slice(0, 10)}|${m.code}`),
     )
-    const snapshots = createRecommendationSnapshots(
-      buildMatchViewModels(historicalMatches, 100), 100, 'legacy-backtest', legacyData.meta.importedAt,
-    )
-    setRecommendationSnapshots((current) => {
-      const merged = mergeRecommendationSnapshots(current, snapshots)
-      if (JSON.stringify(merged) === JSON.stringify(current)) return current
+    const snap = createRecommendationSnapshots(buildMatchViewModels(historical, 100), 100, 'legacy-backtest', legacyData.meta.importedAt)
+    setSnapshots((cur) => {
+      const merged = mergeRecommendationSnapshots(cur, snap)
+      if (JSON.stringify(merged) === JSON.stringify(cur)) return cur
       writeRecommendationSnapshots(merged)
       return merged
     })
   }, [results])
 
   useEffect(() => {
-    const actionableMatches = matches.filter((match) => isMatchActionable(match))
-    const snapshots = createRecommendationSnapshots(buildMatchViewModels(actionableMatches, budget), budget, 'live-capture')
-    setRecommendationSnapshots((current) => {
-      const merged = mergeRecommendationSnapshots(current, snapshots)
-      if (JSON.stringify(merged) === JSON.stringify(current)) return current
+    const actionable = matches.filter((m) => isMatchActionable(m))
+    const snap = createRecommendationSnapshots(buildMatchViewModels(actionable, budget), budget, 'live-capture')
+    setSnapshots((cur) => {
+      const merged = mergeRecommendationSnapshots(cur, snap)
+      if (JSON.stringify(merged) === JSON.stringify(cur)) return cur
       writeRecommendationSnapshots(merged)
       return merged
     })
   }, [budget, matches])
 
-  useEffect(() => {
-    const handleBeforeInstallPrompt = (event: Event) => { event.preventDefault(); setInstallPrompt(event as InstallPromptEvent) }
-    const handleInstalled = () => { setInstallPrompt(null); setIsStandalone(true) }
-    const handleOnline = () => setIsOnline(true)
-    const handleOffline = () => setIsOnline(false)
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-    window.addEventListener('appinstalled', handleInstalled)
-    window.addEventListener('online', handleOnline)
-    window.addEventListener('offline', handleOffline)
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
-      window.removeEventListener('appinstalled', handleInstalled)
-      window.removeEventListener('online', handleOnline)
-      window.removeEventListener('offline', handleOffline)
-    }
-  }, [])
 
-  const installApp = async () => {
-    if (!installPrompt) return
-    await installPrompt.prompt()
-    await installPrompt.userChoice.catch(() => null)
-    setInstallPrompt(null)
-  }
-
-  const enableReminders = async () => {
-    try {
-      const permission = await requestMatchReminderPermission()
-      if (permission !== 'granted') {
-        setRemindersEnabled(false); setScheduledReminderCount(0)
-        setReminderStatus('系统未授予通知权限，可在应用设置中手动开启。')
-        return
-      }
-      const count = await scheduleMatchReminders(matches, reminderMinutes)
-      setRemindersEnabled(true); setScheduledReminderCount(count)
-      setReminderStatus(count > 0 ? `已安排 ${count} 场比赛的赛前提醒。` : '权限已开启，当前没有满足时间的未开赛比赛。')
-    } catch {
-      setRemindersEnabled(false); setScheduledReminderCount(0)
-      setReminderStatus('提醒开启失败，请稍后再试。')
-    }
-  }
-
-  const disableReminders = async () => {
-    try {
-      await cancelMatchReminders()
-      setReminderStatus('已关闭并撤销赛前提醒。')
-    } catch {
-      setReminderStatus('状态已保存，系统通知撤销可能稍有延迟。')
-    } finally {
-      setRemindersEnabled(false); setScheduledReminderCount(0)
-    }
-  }
-
-  // ── Shared: status bar + date rail
-  const statusDotClass = `status-dot ${status}`
+  // ── Shared UI ───────────────────────────────────────────────────────────────
   const statusBar = (
     <div className="status-bar">
-      <span className={statusDotClass} />
-      <span className="status-time">{isOnline ? '在线' : '离线'} · {formatRefreshTime(lastRefreshAt)}</span>
+      <span className={`status-dot ${status}`} />
+      <span className="status-time">
+        {isOnline ? '在线' : '离线'} · {formatRefreshTime(lastRefreshAt)}
+      </span>
       <button
-        className="refresh-btn"
         type="button"
+        className="refresh-btn"
         disabled={isRefreshing}
         onClick={() => { void refreshOdds(); void refreshResults() }}
       >
@@ -334,152 +354,152 @@ function App() {
   )
 
   const dateRail = (
-    <div className="date-rail" aria-label="赛程日期">
-      {dateKeys.map((dateKey) => {
-        const dayMatches = matchesByDate[dateKey] ?? []
-        const isActive = dateKey === targetDateKey
+    <div className="date-rail">
+      {dateKeys.map((dk) => {
+        const cnt = matchesByDate[dk]?.length ?? 0
+        const role = dateRoleLabel(dk)
         return (
           <button
-            key={dateKey}
-            className={isActive ? 'date-chip active' : 'date-chip'}
+            key={dk}
             type="button"
-            onClick={() => setSelectedDateKey(dateKey)}
+            className={dk === targetDateKey ? 'date-chip active' : 'date-chip'}
+            onClick={() => setSelectedDateKey(dk)}
           >
-            <strong>{formatDateLabel(dateKey)}</strong>
-            <small>{dateRoleLabel(dateKey, primaryDateKey)} · {dayMatches.length} 场</small>
+            <strong>{formatDateLabel(dk)}</strong>
+            <small>{role} · {cnt}场</small>
           </button>
         )
       })}
     </div>
   )
 
-  // ── Tab: 今日
+  const analyzeStatusBar = (
+    <div className="analysis-status-bar">
+      {analysisState === 'done' ? (
+        <span className="analysis-done-label">
+          ✓ 已分析 · {analyzedAt
+            ? new Intl.DateTimeFormat('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(analyzedAt))
+            : ''}
+        </span>
+      ) : (
+        <span className="analysis-pending-label">暂未分析</span>
+      )}
+    </div>
+  )
+
+  // ── Tabs ────────────────────────────────────────────────────────────────────
   const todayTab = (
     <div className="tab-content">
       {statusBar}
       {errorMessage ? <div className="inline-warning">{errorMessage}</div> : null}
       {dateRail}
+      {analyzeStatusBar}
 
-      <div className="budget-bar">
-        <label className="budget-field">
-          <span>单场预算</span>
+      <div className="budget-row">
+        <span>单场预算</span>
+        <div className="budget-inputs">
+          {[50, 100, 200].map((v) => (
+            <button
+              key={v}
+              type="button"
+              className={budget === v ? 'quick-budget active' : 'quick-budget'}
+              onClick={() => { setBudget(v); setBudgetInput(String(v)) }}
+            >{v}</button>
+          ))}
           <input
-            type="number" min="1" step="1" inputMode="numeric"
+            type="number"
+            className="budget-input"
+            min="1"
             value={budgetInput}
             onChange={(e) => setBudgetInput(e.target.value)}
-            onBlur={() => { if (!Number.isFinite(parsedBudget) || parsedBudget <= 0) setBudgetInput('100') }}
+            onBlur={() => {
+              const n = parseInt(budgetInput, 10)
+              if (n > 0) setBudget(n)
+              else setBudgetInput(String(budget))
+            }}
           />
-        </label>
-        <div className="quick-budget-row">
-          {QUICK_BUDGETS.map((value) => (
-            <button
-              key={value}
-              className={budget === value ? 'quick-budget active' : 'quick-budget'}
-              type="button"
-              onClick={() => setBudgetInput(String(value))}
-            >
-              {value}
-            </button>
-          ))}
         </div>
       </div>
 
-      <div className="summary-grid">
-        <div className="metric-card risk">
-          <span>最大风险</span>
-          <strong>{formatCurrency(targetRecommendationMatches.length * budget)}</strong>
-          <small>{targetRecommendationMatches.length} 场全未中时亏损</small>
-        </div>
-        <div className={conservativeExpected >= 0 ? 'metric-card positive' : 'metric-card negative'}>
-          <span>保守期望</span>
-          <strong>{formatSignedCurrency(conservativeExpected)}</strong>
-        </div>
-        <div className={aggressiveExpected >= 0 ? 'metric-card positive' : 'metric-card negative'}>
-          <span>进取期望</span>
-          <strong>{formatSignedCurrency(aggressiveExpected)}</strong>
-        </div>
-      </div>
+      {actionableMatches.length < targetMatches.length && (
+        <p className="exclusion-note">
+          已排除 {targetMatches.length - actionableMatches.length} 场已开赛或缺少赔率的比赛
+        </p>
+      )}
 
-      {excludedTargetCount > 0 ? (
-        <p className="exclusion-note">已排除 {excludedTargetCount} 场已开赛或缺少赔率的比赛</p>
-      ) : null}
-
-      <ExecutionSlipCard
-        viewModels={nextDayViewModels}
-        dateKey={targetDateKey}
-        budget={budget}
-        mode={executionMode}
-        onModeChange={setExecutionMode}
-      />
-
-      <div className="section-title">重点方案 · {nextDayViewModels.length} 场</div>
       <div className="card-list">
-        {nextDayViewModels.length > 0 ? (
-          nextDayViewModels.map((vm) => (
-            <RecommendationCard
+        {viewModels.length > 0 ? (
+          viewModels.map((vm) => (
+            <MatchAnalysisCard
               key={vm.match.id}
               viewModel={vm}
               budget={budget}
               yearMatches={matches}
               yearResults={results}
               analysisYear={ANALYSIS_YEAR}
+              claude={claudeInsights[vm.match.id]}
+              dateKey={targetDateKey}
             />
           ))
         ) : (
-          <div className="empty-state">当前日期暂无可计算的购买建议，请切换赛程日或刷新赔率。</div>
+          <div className="empty-state">当前日期暂无可计算的比赛，请切换日期或刷新赔率。</div>
         )}
       </div>
     </div>
   )
 
-  // ── Tab: 赛程
   const scheduleTab = (
     <div className="tab-content">
       {statusBar}
       {dateRail}
-      <div className="section-title">全部赛程 · {sortMatchesByKickoff(matches).length} 场</div>
+      <div className="section-label">全部赛程 · {sortMatchesByKickoff(matches).length} 场</div>
       <div className="card-list">
-        {visibleViewModels.length > 0 ? (
-          visibleViewModels.map((vm) => (
-            <MatchCard
+        {allViewModels.length > 0 ? (
+          allViewModels.map((vm) => (
+            <MatchAnalysisCard
               key={vm.match.id}
               viewModel={vm}
               budget={budget}
               yearMatches={matches}
               yearResults={results}
               analysisYear={ANALYSIS_YEAR}
+              claude={claudeInsights[vm.match.id]}
+              dateKey={targetDateKey}
             />
           ))
         ) : (
-          <div className="empty-state">暂无赛程数据，请刷新赔率。</div>
+          <div className="empty-state">暂无赛程数据，请刷新。</div>
         )}
       </div>
     </div>
   )
 
-  // ── Tab: 复盘
   const reviewTab = (
     <div className="tab-content">
+      {/* ── Real P&L from confirmed buys ── */}
+      <ConfirmedBuyReview
+        settlements={confirmedSettlements}
+        onBuyRemoved={() => setConfirmedBuysTick((n) => n + 1)}
+      />
       <RecentResultsCard
         results={results}
         updatedAt={resultsUpdatedAt}
-        statusLabel={resultStatus === 'live' ? '已刷新' : resultStatus === 'refreshing' ? '刷新中' : resultStatus === 'cached' ? '缓存' : resultStatus === 'error' ? '失败' : '本地'}
+        statusLabel={resultStatus === 'live' ? '已刷新' : resultStatus === 'refreshing' ? '刷新中' : resultStatus === 'cached' ? '缓存' : '本地'}
         analysisYear={ANALYSIS_YEAR}
       />
-      <PerformanceReviewCard settlements={settledRecommendations} initialMode={executionMode} />
+      <PerformanceReviewCard settlements={settledRecommendations} initialMode="conservative" />
     </div>
   )
 
-  // ── Tab: 设置
   const settingsTab = (
     <div className="tab-content">
       <div className="settings-section">
-        <div className="settings-title">数据与刷新</div>
+        <div className="settings-title">数据刷新</div>
         <div className="settings-card">
           <div className="settings-row">
             <div>
               <strong>自动刷新</strong>
-              <small>每 5 分钟自动同步赔率</small>
+              <small>每 5 分钟同步赔率</small>
             </div>
             <label className="toggle-switch">
               <input type="checkbox" checked={autoRefresh} onChange={(e) => setAutoRefresh(e.target.checked)} />
@@ -489,12 +509,12 @@ function App() {
           <div className="settings-divider" />
           <div className="settings-row">
             <div>
-              <strong>网络状态</strong>
+              <strong>网络</strong>
               <small>{isOnline ? '在线' : '离线'} · 最近刷新 {formatRefreshTime(lastRefreshAt)}</small>
             </div>
             <button
-              className="settings-action-btn"
               type="button"
+              className="settings-action-btn"
               disabled={isRefreshing}
               onClick={() => { void refreshOdds(); void refreshResults() }}
             >
@@ -503,133 +523,94 @@ function App() {
           </div>
         </div>
       </div>
-
-      {nativeReminderAvailable ? (
-        <div className="settings-section">
-          <div className="settings-title">赛前提醒</div>
-          <div className="settings-card">
-            <div className="settings-row">
-              <div>
-                <strong>赛前通知</strong>
-                <small>{remindersEnabled ? `已开启，${scheduledReminderCount} 场提醒中` : '已关闭'}</small>
-              </div>
-              <button
-                className={remindersEnabled ? 'settings-action-btn danger' : 'settings-action-btn'}
-                type="button"
-                onClick={() => remindersEnabled ? void disableReminders() : void enableReminders()}
-              >
-                {remindersEnabled ? '关闭' : '开启'}
-              </button>
+      <div className="settings-section">
+        <div className="settings-title">版本</div>
+        <div className="settings-card">
+          <div className="settings-row">
+            <div>
+              <strong>当前版本</strong>
+              <small>v{APP_VERSION} · {BUILD_DATE}</small>
             </div>
-            {remindersEnabled ? (
-              <>
-                <div className="settings-divider" />
-                <div className="settings-row">
-                  <span>提前时间</span>
-                  <div className="reminder-options">
-                    {[30, 60, 120].map((mins) => (
-                      <button
-                        key={mins}
-                        className={reminderMinutes === mins ? 'reminder-opt active' : 'reminder-opt'}
-                        type="button"
-                        onClick={() => setReminderMinutes(mins)}
-                      >
-                        {mins} 分钟
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </>
-            ) : null}
-            {reminderStatus ? <p className="settings-note">{reminderStatus}</p> : null}
+            <button type="button" className="settings-action-btn" onClick={() => window.location.reload()}>
+              检查更新
+            </button>
           </div>
         </div>
-      ) : null}
+      </div>
 
-      {!isStandalone ? (
-        <div className="settings-section">
-          <div className="settings-title">安装</div>
-          <div className="settings-card">
-            <div className="settings-row">
-              <div>
-                <strong>安装到桌面</strong>
-                <small>{installPrompt ? '点击安装为手机应用' : '用浏览器菜单选择"添加到主屏幕"'}</small>
+      <div className="settings-section">
+        <div className="settings-title">更新日志</div>
+        <div className="settings-card changelog-card">
+          {CHANGELOG.map((entry) => (
+            <div key={entry.version} className="changelog-entry">
+              <div className="changelog-header">
+                <span className="changelog-version">v{entry.version}</span>
+                <span className="changelog-date">{entry.date}</span>
               </div>
-              <button
-                className="settings-action-btn"
-                type="button"
-                disabled={!installPrompt}
-                onClick={() => void installApp()}
-              >
-                {installPrompt ? '安装' : '等待'}
-              </button>
+              <ul className="changelog-list">
+                {entry.changes.map((change) => (
+                  <li key={change}>{change}</li>
+                ))}
+              </ul>
             </div>
-          </div>
+          ))}
         </div>
-      ) : null}
+      </div>
 
       <div className="settings-section">
         <div className="settings-title">关于</div>
         <div className="settings-card settings-about">
           <strong>{legacyData.meta.appName}</strong>
-          <small>本地 AI 规则版 · 只看 {ANALYSIS_YEAR} 年赛事</small>
+          <small>体彩数据 + Claude AI 中转 · 不保证命中</small>
           <small>数据来源：中国体育彩票官方接口</small>
         </div>
       </div>
     </div>
   )
 
-  const tabContent: Record<TabKind, React.ReactNode> = {
-    today: todayTab,
-    schedule: scheduleTab,
-    review: reviewTab,
-    settings: settingsTab,
-  }
-
   return (
     <div className="app-shell">
+      {updateAvailable && (
+        <div className="update-banner">
+          <span>🎉 新版本 {updateAvailable} 已就绪</span>
+          <button type="button" className="update-btn" onClick={() => window.location.reload()}>
+            立即更新
+          </button>
+        </div>
+      )}
       <header className="app-header">
         <h1>{legacyData.meta.appName}</h1>
         <span className="header-date">{targetDateKey}</span>
       </header>
 
       <main className="app-main">
-        {tabContent[activeTab]}
+        {activeTab === 'today' && todayTab}
+        {activeTab === 'schedule' && scheduleTab}
+        {activeTab === 'review' && reviewTab}
+        {activeTab === 'settings' && settingsTab}
       </main>
 
-      <nav className="tab-bar" aria-label="主导航">
-        <button
-          className={activeTab === 'today' ? 'tab-btn active' : 'tab-btn'}
-          type="button"
-          onClick={() => setActiveTab('today')}
-        >
-          <span className="tab-icon">🎯</span>
-          <span>今日</span>
-        </button>
-        <button
-          className={activeTab === 'schedule' ? 'tab-btn active' : 'tab-btn'}
-          type="button"
-          onClick={() => setActiveTab('schedule')}
-        >
-          <span className="tab-icon">📋</span>
-          <span>赛程</span>
-        </button>
-        <button
-          className={activeTab === 'review' ? 'tab-btn active' : 'tab-btn'}
-          type="button"
-          onClick={() => setActiveTab('review')}
-        >
-          <span className="tab-icon">📊</span>
-          <span>复盘</span>
-        </button>
-        <button
-          className={activeTab === 'settings' ? 'tab-btn active' : 'tab-btn'}
-          type="button"
-          onClick={() => setActiveTab('settings')}
-        >
-          <span className="tab-icon">⚙️</span>
-          <span>设置</span>
-        </button>
+      <nav className="tab-bar">
+        {(['today', 'schedule', 'review', 'settings'] as TabKind[]).map((tab) => {
+          const labels: Record<TabKind, [string, string]> = {
+            today: ['🎯', '今日'],
+            schedule: ['📋', '赛程'],
+            review: ['📊', '复盘'],
+            settings: ['⚙️', '设置'],
+          }
+          const [icon, label] = labels[tab]
+          return (
+            <button
+              key={tab}
+              type="button"
+              className={activeTab === tab ? 'tab-btn active' : 'tab-btn'}
+              onClick={() => setActiveTab(tab)}
+            >
+              <span className="tab-icon">{icon}</span>
+              <span>{label}</span>
+            </button>
+          )
+        })}
       </nav>
     </div>
   )

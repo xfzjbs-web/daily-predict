@@ -4,10 +4,15 @@ import './index.css'
 import App from './App.tsx'
 import { registerServiceWorker } from './registerServiceWorker.ts'
 
-createRoot(document.getElementById('root')!).render(
+const root = createRoot(document.getElementById('root')!)
+
+root.render(
   <StrictMode>
     <App />
   </StrictMode>,
 )
 
-registerServiceWorker()
+registerServiceWorker((newVersion) => {
+  // Dispatch a custom event so App can show the update banner
+  window.dispatchEvent(new CustomEvent('app-updated', { detail: { version: newVersion } }))
+})

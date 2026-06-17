@@ -3,54 +3,104 @@ import {
   buildTeamCurrentYearContext,
   type TeamCurrentYearContext,
 } from '../data/current-year-context.ts'
-import { formatPercent, formatPercentRange, formatSignedCurrency } from './format.ts'
+import { formatPercent } from './format.ts'
 import type { MatchRecord, MatchResultRecord, MatchViewModel, OutcomeType } from './types.ts'
 
+export interface ClaudeResult {
+  verdict: string
+  marketInsight: string
+  strategyComment: string
+  riskFlags: string[]
+  adjustedConservative: string[] | null
+  adjustedAggressive: { main: string; tail: string } | null
+  confidence: 'low' | 'medium' | 'high'
+}
+
 export interface MatchAiInsight {
-  mode: 'local-current-year-rules' | 'remote-claude'
-  modeLabel: string
-  scope: string
+  mode: 'local' | 'claude'
   homeContext: TeamCurrentYearContext
   awayContext: TeamCurrentYearContext
   yearConclusion: string
   marketConclusion: string
-  strategyConclusion: string
   finalVerdict: string
   riskFlags: string[]
-  // Remote Claude fields (only set when mode === 'remote-claude')
-  claudeVerdict?: string
-  claudeMarketInsight?: string
-  claudeStrategyComment?: string
-  claudeConfidence?: 'low' | 'medium' | 'high'
-  claudeAdjustedConservative?: string[] | null
-  claudeAdjustedAggressive?: { main: string; tail: string } | null
-  claudeLoading?: boolean
-  claudeError?: string
+  claude?: ClaudeResult
 }
 
-const AI_ANALYSIS_ENDPOINT = import.meta.env.VITE_AI_ANALYSIS_ENDPOINT as string | undefined
+export type BatchAnalysisState = 'idle' | 'analyzing' | 'done' | 'error'
 
-// In-memory cache: matchId+oddsUpdatedAt → remote result
-const remoteCache = new Map<string, Partial<MatchAiInsight>>()
+const AI_ENDPOINT = (import.meta.env.VITE_AI_ANALYSIS_ENDPOINT as string | undefined)?.replace(/\/$/, '')
 
-function isNumericScore(score: string) {
-  return /^\d+:\d+$/.test(score)
-}
+export const isClaudeEnabled = Boolean(AI_ENDPOINT)
 
-function outcomeLabel(outcomeType: OutcomeType) {
-  if (outcomeType === 'home') return '主队方向'
-  if (outcomeType === 'away') return '客队方向'
-  return '平局方向'
-}
+// ── localStorage cache keyed by dateKey ──────────────────────────────────────
+const CACHE_PREFIX = 'aiInsights:'
+const ODDS_PREFIX = 'aiOdds:'
 
-function impliedOutcomeTotals(match: MatchRecord) {
-  const exactEntries = match.oddsEntries.filter((entry) => isNumericScore(entry.score))
-  const denominator = exactEntries.reduce((sum, entry) => sum + 1 / entry.odds, 0)
-  const totals: Record<OutcomeType, number> = { home: 0, draw: 0, away: 0 }
-  if (denominator <= 0) return totals
-  for (const entry of exactEntries) {
-    totals[entry.outcomeType] += (1 / entry.odds) / denominator
+export function loadCachedInsights(dateKey: string): Record<string, ClaudeResult> {
+  try {
+    const raw = localStorage.getItem(CACHE_PREFIX + dateKey)
+    return raw ? (JSON.parse(raw) as Record<string, ClaudeResult>) : {}
+  } catch {
+    return {}
   }
+}
+
+function saveCachedInsights(dateKey: string, insights: Record<string, ClaudeResult>) {
+  try {
+    localStorage.setItem(CACHE_PREFIX + dateKey, JSON.stringify(insights))
+  } catch { /* ignore quota errors */ }
+}
+
+// Odds at analysis time: matchId → {score → odds}
+export function loadOddsSnapshot(dateKey: string): Record<string, Record<string, number>> {
+  try {
+    const raw = localStorage.getItem(ODDS_PREFIX + dateKey)
+    return raw ? (JSON.parse(raw) as Record<string, Record<string, number>>) : {}
+  } catch {
+    return {}
+  }
+}
+
+function saveOddsSnapshot(dateKey: string, snap: Record<string, Record<string, number>>) {
+  try {
+    localStorage.setItem(ODDS_PREFIX + dateKey, JSON.stringify(snap))
+  } catch { /* ignore */ }
+}
+
+// Detect if current odds have drifted >threshold from snapshot
+export function detectOddsDrift(
+  matchId: string,
+  currentOdds: Record<string, number>,
+  dateKey: string,
+  threshold = 0.05,
+): { drifted: boolean; changes: Array<{ score: string; from: number; to: number; pct: number }> } {
+  const snap = loadOddsSnapshot(dateKey)
+  const snapOdds = snap[matchId]
+  if (!snapOdds) return { drifted: false, changes: [] }
+
+  const changes = Object.entries(currentOdds)
+    .filter(([score, cur]) => {
+      const old = snapOdds[score]
+      return old !== undefined && Math.abs(cur - old) / old > threshold
+    })
+    .map(([score, cur]) => ({
+      score,
+      from: snapOdds[score],
+      to: cur,
+      pct: (cur - snapOdds[score]) / snapOdds[score],
+    }))
+
+  return { drifted: changes.length > 0, changes }
+}
+
+// ── Local insight (always computed) ──────────────────────────────────────────
+function impliedOutcomeTotals(match: MatchRecord) {
+  const exact = match.oddsEntries.filter((e) => /^\d+:\d+$/.test(e.score))
+  const denom = exact.reduce((s, e) => s + 1 / e.odds, 0)
+  const totals: Record<OutcomeType, number> = { home: 0, draw: 0, away: 0 }
+  if (denom <= 0) return totals
+  for (const e of exact) totals[e.outcomeType] += (1 / e.odds) / denom
   return totals
 }
 
@@ -62,9 +112,9 @@ function getMarketLeader(match: MatchRecord) {
 
 function currentYearDirection(home: TeamCurrentYearContext, away: TeamCurrentYearContext) {
   if (home.pointsPerMatch !== null && away.pointsPerMatch !== null) {
-    const resultGap = home.pointsPerMatch - away.pointsPerMatch
-    if (Math.abs(resultGap) < 0.45) return 'balanced' as const
-    return resultGap > 0 ? 'home' : 'away'
+    const gap = home.pointsPerMatch - away.pointsPerMatch
+    if (Math.abs(gap) < 0.45) return 'balanced' as const
+    return gap > 0 ? 'home' : 'away'
   }
   if (home.averageWinImplied === null || away.averageWinImplied === null) return 'insufficient' as const
   const gap = home.averageWinImplied - away.averageWinImplied
@@ -72,125 +122,104 @@ function currentYearDirection(home: TeamCurrentYearContext, away: TeamCurrentYea
   return gap > 0 ? 'home' : 'away'
 }
 
-function directionTeamName(direction: ReturnType<typeof currentYearDirection>, match: MatchRecord) {
-  if (direction === 'home') return match.homeTeam
-  if (direction === 'away') return match.awayTeam
-  if (direction === 'balanced') return '两队接近'
-  return '样本不足'
-}
-
-function formatNullablePercent(value: number | null) {
-  return value === null ? '暂无' : formatPercent(value)
-}
-
-function buildYearConclusion(home: TeamCurrentYearContext, away: TeamCurrentYearContext, match: MatchRecord) {
-  const direction = currentYearDirection(home, away)
-  if (home.resultCount > 0 || away.resultCount > 0) {
-    const homeRecord = home.resultCount > 0 ? `${home.team} ${home.wins}胜${home.draws}平${home.losses}负` : `${home.team} 暂无完场`
-    const awayRecord = away.resultCount > 0 ? `${away.team} ${away.wins}胜${away.draws}平${away.losses}负` : `${away.team} 暂无完场`
-    if (direction === 'balanced') return `${home.year} 年官方完场样本接近：${homeRecord}，${awayRecord}；当前仍需结合本场赔率分布。`
-    if (direction !== 'insufficient') return `${home.year} 年官方完场样本更偏 ${directionTeamName(direction, match)}：${homeRecord}，${awayRecord}；样本仍少，不代表必然赛果。`
-  }
-  if (direction === 'insufficient') return `${home.year} 年同队样本不足，判断以本场赔率和方案计算为主。`
-  if (direction === 'balanced') return `${home.year} 年同队赔率样本接近：${home.team} 平均胜向 ${formatNullablePercent(home.averageWinImplied)}，${away.team} 平均胜向 ${formatNullablePercent(away.averageWinImplied)}。`
-  return `${home.year} 年同队赔率样本更偏 ${directionTeamName(direction, match)}，但这只是今年已加载样本，不等于最终赛果。`
-}
-
-export function buildLocalAiInsight(
+export function buildLocalInsight(
   viewModel: MatchViewModel,
   yearMatches: MatchRecord[],
   yearResults: MatchResultRecord[],
   year: number,
 ): MatchAiInsight {
-  const { match, conservative, aggressive } = viewModel
+  const { match } = viewModel
   const homeContext = buildTeamCurrentYearContext(match.homeTeam, yearMatches, yearResults, year)
   const awayContext = buildTeamCurrentYearContext(match.awayTeam, yearMatches, yearResults, year)
-  const yearDirection = currentYearDirection(homeContext, awayContext)
+  const direction = currentYearDirection(homeContext, awayContext)
   const marketLeader = getMarketLeader(match)
-  const marketDirection =
+
+  const marketDir =
     marketLeader.outcomeType === 'home' ? match.homeTeam
     : marketLeader.outcomeType === 'away' ? match.awayTeam
     : '平局'
+
   const aligned =
-    (yearDirection === 'home' && marketLeader.outcomeType === 'home') ||
-    (yearDirection === 'away' && marketLeader.outcomeType === 'away')
+    (direction === 'home' && marketLeader.outcomeType === 'home') ||
+    (direction === 'away' && marketLeader.outcomeType === 'away')
+
+  const dirName = direction === 'home' ? match.homeTeam
+    : direction === 'away' ? match.awayTeam
+    : direction === 'balanced' ? '两队接近' : '样本不足'
+
   const riskFlags = [
     homeContext.resultCount + awayContext.resultCount < 2 ? '今年官方完场样本偏少' : '',
     homeContext.matchCount + awayContext.matchCount < 4 ? '今年同队赔率样本偏少' : '',
-    yearDirection === 'balanced' ? '今年样本强弱差距不明显' : '',
-    yearDirection !== 'balanced' && yearDirection !== 'insufficient' && !aligned ? '今年样本方向与本场盘面分歧' : '',
-    conservative.expectedNet < 0 ? '保守版期望仍为负，覆盖不等于保本' : '',
-    aggressive.predictedCoverage.mid < conservative.predictedCoverage.mid ? '进取版覆盖率更低，回撤更尖锐' : '',
+    direction === 'balanced' ? '今年样本强弱差距不明显' : '',
+    direction !== 'balanced' && direction !== 'insufficient' && !aligned ? '今年样本方向与本场盘面分歧' : '',
   ].filter(Boolean)
+
+  const yearConclusion =
+    homeContext.resultCount + awayContext.resultCount > 0
+      ? `${year} 年完场：${homeContext.team} ${homeContext.wins}W${homeContext.draws}D${homeContext.losses}L，${awayContext.team} ${awayContext.wins}W${awayContext.draws}D${awayContext.losses}L`
+      : `${year} 年完场数据暂无，参考赔率分布。`
+
+  const marketConclusion = `盘面偏 ${marketDir}（${formatPercent(marketLeader.value)}），${CURRENT_YEAR_CONTEXT_NOTE}`
+
   const finalVerdict = aligned
-    ? `${year} 年样本与本场盘面同向，${marketDirection} 路径优先；仍建议用保守版覆盖比分尾部。`
-    : yearDirection === 'balanced' || yearDirection === 'insufficient'
-      ? `${year} 年样本不足以单独定方向，最终以本场赔率分布和预算方案为准。`
-      : `${year} 年样本偏 ${directionTeamName(yearDirection, match)}，但本场盘面偏 ${marketDirection}；建议降低单一路径仓位。`
+    ? `今年样本与盘面同向偏 ${marketDir}，建议保守覆盖该方向。`
+    : direction === 'balanced' || direction === 'insufficient'
+      ? `今年样本不足，以本场赔率分布为主要依据。`
+      : `今年样本偏 ${dirName}，但盘面偏 ${marketDir}，存在分歧，降低单路径仓位。`
 
   return {
-    mode: AI_ANALYSIS_ENDPOINT ? 'remote-claude' : 'local-current-year-rules',
-    modeLabel: AI_ANALYSIS_ENDPOINT ? 'Claude AI 分析中…' : '本地规则 · 仅今年数据',
-    scope: `${year} 年；${CURRENT_YEAR_CONTEXT_NOTE}`,
+    mode: 'local',
     homeContext,
     awayContext,
-    yearConclusion: buildYearConclusion(homeContext, awayContext, match),
-    marketConclusion: `本场盘面更偏 ${marketDirection}（${outcomeLabel(marketLeader.outcomeType)}，约 ${formatPercent(marketLeader.value)}），保守覆盖 ${formatPercentRange(conservative.predictedCoverage)}。`,
-    strategyConclusion: `保守版期望 ${formatSignedCurrency(conservative.expectedNet)}，进取版期望 ${formatSignedCurrency(aggressive.expectedNet)}。`,
+    yearConclusion,
+    marketConclusion,
     finalVerdict,
     riskFlags,
-    claudeLoading: Boolean(AI_ANALYSIS_ENDPOINT),
   }
 }
 
-// Build the request payload for the remote endpoint
-function buildRemoteRequest(viewModel: MatchViewModel) {
+// ── Remote Claude request payload ─────────────────────────────────────────────
+const WC_PRIOR: Record<string, number> = {
+  '1:0': 0.148, '0:1': 0.130, '1:1': 0.118, '2:1': 0.087, '2:0': 0.085,
+  '0:2': 0.065, '0:0': 0.062, '1:2': 0.044, '3:0': 0.038, '3:1': 0.036,
+  '2:2': 0.030, '0:3': 0.026,
+}
+
+function buildPayload(viewModel: MatchViewModel) {
   const { match, conservative, aggressive } = viewModel
-  const exactEntries = match.oddsEntries.filter((e) => isNumericScore(e.score))
-  const denominator = exactEntries.reduce((s, e) => s + 1 / e.odds, 0)
-
-  // Blended probability (same weights as strategy.ts)
-  const WC_PRIOR: Record<string, number> = {
-    '1:0': 0.148, '0:1': 0.130, '1:1': 0.118, '2:1': 0.087, '2:0': 0.085,
-    '0:2': 0.065, '0:0': 0.062, '1:2': 0.044, '3:0': 0.038, '3:1': 0.036,
-    '2:2': 0.030, '0:3': 0.026,
-  }
-  const priorSum = exactEntries.reduce((s, e) => s + (WC_PRIOR[e.score] ?? 0), 0)
+  const exact = match.oddsEntries.filter((e) => /^\d+:\d+$/.test(e.score))
+  const denom = exact.reduce((s, e) => s + 1 / e.odds, 0)
+  const priorSum = exact.reduce((s, e) => s + (WC_PRIOR[e.score] ?? 0), 0)
   const priorScale = priorSum > 0 ? 1 / priorSum : 1
-  const rawBlended = new Map<string, number>()
-  for (const e of exactEntries) {
-    const impl = denominator > 0 ? (1 / e.odds) / denominator : 0
+
+  const blendedMap = new Map<string, number>()
+  for (const e of exact) {
+    const impl = denom > 0 ? (1 / e.odds) / denom : 0
     const prior = (WC_PRIOR[e.score] ?? 0) * priorScale
-    rawBlended.set(e.score, 0.75 * impl + 0.25 * prior)
+    blendedMap.set(e.score, 0.75 * impl + 0.25 * prior)
   }
-  const blendedTotal = [...rawBlended.values()].reduce((s, v) => s + v, 0)
+  const blendTotal = [...blendedMap.values()].reduce((s, v) => s + v, 0)
 
-  // Expected goals
   let expectedGoals = 0
-  for (const e of exactEntries) {
+  for (const e of exact) {
     const m = e.score.match(/^(\d+):(\d+)$/)
-    if (m) expectedGoals += ((rawBlended.get(e.score) ?? 0) / blendedTotal) * (+m[1] + +m[2])
+    if (m) expectedGoals += ((blendedMap.get(e.score) ?? 0) / blendTotal) * (+m[1] + +m[2])
   }
 
-  const implied = new Map(exactEntries.map((e) => [e.score, denominator > 0 ? (1 / e.odds) / denominator : 0]))
+  const impliedMap = new Map(exact.map((e) => [e.score, denom > 0 ? (1 / e.odds) / denom : 0]))
   const totals: Record<OutcomeType, number> = { home: 0, draw: 0, away: 0 }
-  for (const e of exactEntries) totals[e.outcomeType] += implied.get(e.score) ?? 0
+  for (const e of exact) totals[e.outcomeType] += impliedMap.get(e.score) ?? 0
 
-  const sortedOdds = [...match.oddsEntries]
+  const odds = [...match.oddsEntries]
     .sort((a, b) => a.odds - b.odds)
+    .slice(0, 16)
     .map((e) => ({
       score: e.score,
       odds: e.odds,
-      impliedPct: isNumericScore(e.score) ? formatPercent(implied.get(e.score) ?? 0) : '-',
-      blendedPct: isNumericScore(e.score)
-        ? formatPercent((rawBlended.get(e.score) ?? 0) / blendedTotal)
-        : '-',
+      impliedPct: /^\d+:\d+$/.test(e.score) ? formatPercent(impliedMap.get(e.score) ?? 0) : '-',
+      blendedPct: /^\d+:\d+$/.test(e.score) ? formatPercent((blendedMap.get(e.score) ?? 0) / blendTotal) : '-',
       outcomeType: e.outcomeType,
     }))
-
-  const conservativePicks = conservative.rows.map((r) => r.score)
-  const aggressiveMain = aggressive.rows[0]?.score ?? ''
-  const aggressiveTail = aggressive.rows[1]?.score ?? ''
 
   return {
     match: {
@@ -200,68 +229,110 @@ function buildRemoteRequest(viewModel: MatchViewModel) {
       leagueName: match.leagueName ?? '世界杯',
       code: match.code,
     },
-    odds: sortedOdds,
+    odds,
     expectedGoals,
     outcomeTotals: {
       home: formatPercent(totals.home),
       draw: formatPercent(totals.draw),
       away: formatPercent(totals.away),
     },
-    conservativePicks,
-    aggressivePicks: { main: aggressiveMain, tail: aggressiveTail },
+    conservativePicks: conservative.rows.map((r) => r.score),
+    aggressivePicks: { main: aggressive.rows[0]?.score ?? '', tail: aggressive.rows[1]?.score ?? '' },
   }
 }
 
-// Fetch Claude analysis and return partial insight fields
-export async function fetchClaudeInsight(
-  viewModel: MatchViewModel,
-  signal?: AbortSignal,
-): Promise<Partial<MatchAiInsight>> {
-  if (!AI_ANALYSIS_ENDPOINT) return {}
+// ── Server sync ──────────────────────────────────────────────────────────────
+export interface ServerAnalysis {
+  found: boolean
+  insights?: Record<string, ClaudeResult>
+  analyzedAt?: string
+}
 
-  const { match } = viewModel
-  const cacheKey = `${match.id}|${match.oddsUpdatedAt}`
-  if (remoteCache.has(cacheKey)) return remoteCache.get(cacheKey)!
+const GIST_URL = 'https://gist.githubusercontent.com/xfzjbs-web/2ede41711a15eb746939df5ff10a42de/raw/analysis.json'
 
-  const endpoint = AI_ANALYSIS_ENDPOINT.replace(/\/$/, '') + '/api/analyze'
+export async function fetchServerAnalysis(dateKey: string): Promise<ServerAnalysis> {
+  try {
+    const resp = await fetch(`${GIST_URL}?_=${Date.now()}`)
+    if (!resp.ok) return { found: false }
+    const all = await resp.json() as Record<string, ServerAnalysis>
+    const entry = all[dateKey]
+    if (!entry) return { found: false }
+    return entry
+  } catch {
+    return { found: false }
+  }
+}
 
-  const response = await fetch(endpoint, {
+export async function pushServerAnalysis(
+  dateKey: string,
+  insights: Record<string, ClaudeResult>,
+  adminToken: string,
+): Promise<void> {
+  if (!AI_ENDPOINT) return
+  await fetch(`${AI_ENDPOINT}/api/save-analysis`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(buildRemoteRequest(viewModel)),
-    signal,
+    headers: { 'Content-Type': 'application/json', 'x-admin-token': adminToken },
+    body: JSON.stringify({ dateKey, insights, analyzedAt: new Date().toISOString() }),
   })
-
-  if (!response.ok) {
-    const err = await response.text().catch(() => String(response.status))
-    throw new Error(`Claude 分析接口返回 ${response.status}：${err.slice(0, 120)}`)
-  }
-
-  const data = await response.json() as {
-    verdict: string
-    marketInsight: string
-    strategyComment: string
-    riskFlags: string[]
-    adjustedConservative: string[] | null
-    adjustedAggressive: { main: string; tail: string } | null
-    confidence: 'low' | 'medium' | 'high'
-  }
-
-  const result: Partial<MatchAiInsight> = {
-    claudeLoading: false,
-    claudeVerdict: data.verdict,
-    claudeMarketInsight: data.marketInsight,
-    claudeStrategyComment: data.strategyComment,
-    claudeConfidence: data.confidence,
-    claudeAdjustedConservative: data.adjustedConservative,
-    claudeAdjustedAggressive: data.adjustedAggressive,
-    riskFlags: data.riskFlags,
-    modeLabel: 'Claude AI 已分析',
-    mode: 'remote-claude',
-  }
-
-  remoteCache.set(cacheKey, result)
-  return result
 }
 
-export const isRemoteEnabled = Boolean(AI_ANALYSIS_ENDPOINT)
+// ── Batch analysis ────────────────────────────────────────────────────────────
+export async function batchAnalyzeMatches(
+  viewModels: MatchViewModel[],
+  dateKey: string,
+  onProgress: (done: number, total: number) => void,
+  signal?: AbortSignal,
+): Promise<Record<string, ClaudeResult>> {
+  if (!AI_ENDPOINT) throw new Error('未配置 AI 端点')
+
+  const cached = loadCachedInsights(dateKey)
+  const oddsSnap = loadOddsSnapshot(dateKey)
+  const results: Record<string, ClaudeResult> = { ...cached }
+  let done = 0
+
+  for (const vm of viewModels) {
+    if (signal?.aborted) break
+    if (results[vm.match.id]) { done++; onProgress(done, viewModels.length); continue }
+
+    try {
+      const resp = await fetch(`${AI_ENDPOINT}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(buildPayload(vm)),
+        signal,
+      })
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+      const data = await resp.json() as ClaudeResult
+      results[vm.match.id] = data
+      // Save odds at analysis time for drift detection
+      oddsSnap[vm.match.id] = Object.fromEntries(
+        vm.match.oddsEntries.filter((e) => /^\d+:\d+$/.test(e.score)).map((e) => [e.score, e.odds])
+      )
+      saveOddsSnapshot(dateKey, oddsSnap)
+    } catch (err) {
+      if (signal?.aborted) break
+      // Store error placeholder so we don't retry in same session
+      results[vm.match.id] = {
+        verdict: `分析失败：${err instanceof Error ? err.message : '未知错误'}`,
+        marketInsight: '',
+        strategyComment: '',
+        riskFlags: ['API 调用失败，显示本地规则结果'],
+        adjustedConservative: null,
+        adjustedAggressive: null,
+        confidence: 'low',
+      }
+    }
+
+    done++
+    onProgress(done, viewModels.length)
+    saveCachedInsights(dateKey, results)
+
+    // Small delay to avoid hammering
+    if (done < viewModels.length && !signal?.aborted) {
+      await new Promise((res) => setTimeout(res, 300))
+    }
+  }
+
+  saveCachedInsights(dateKey, results)
+  return results
+}
