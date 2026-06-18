@@ -14,6 +14,9 @@ export interface ClaudeResult {
   adjustedConservative: string[] | null
   adjustedAggressive: { main: string; tail: string } | null
   confidence: 'low' | 'medium' | 'high'
+  // Optional enrichment fields (added when lineup/player research is available)
+  teamNews?: string        // injuries, suspensions, lineup changes
+  keyMatchup?: string      // tactical/player matchup analysis
 }
 
 export interface MatchAiInsight {

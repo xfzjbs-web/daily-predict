@@ -91,6 +91,20 @@ function AiSection({
           </div>
         )}
 
+        {claude.teamNews && (
+          <div className="ai-dim-block">
+            <div className="ai-block-label">球队动态 / 阵容</div>
+            <p className="ai-dim-text">{claude.teamNews}</p>
+          </div>
+        )}
+
+        {claude.keyMatchup && (
+          <div className="ai-dim-block">
+            <div className="ai-block-label">关键对位</div>
+            <p className="ai-dim-text">{claude.keyMatchup}</p>
+          </div>
+        )}
+
         {claude.riskFlags.length > 0 && (
           <div className="ai-dim-block">
             <div className="ai-block-label">风险提示</div>
