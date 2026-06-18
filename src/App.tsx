@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { APP_VERSION, BUILD_DATE, CHANGELOG } from './version.ts'
 import { MatchAnalysisCard } from './components/MatchAnalysisCard.tsx'
-import { PerformanceReviewCard } from './components/PerformanceReviewCard.tsx'
 import { RecentResultsCard } from './components/RecentResultsCard.tsx'
 import { filterMatchesByYear } from './data/current-year-context.ts'
 import { legacyData } from './data/index.ts'
@@ -176,7 +175,6 @@ function App() {
   const [results, setResults] = useState<MatchResultRecord[]>(() => filterResultsByYear(cachedResults?.results))
   const [snapshots, setSnapshots] = useState(initialSnapshots)
   const [budget, setBudget] = useState(prefs.budget)
-  const [budgetInput, setBudgetInput] = useState(String(prefs.budget))
   const [autoRefresh, setAutoRefresh] = useState(prefs.autoRefresh)
   const [activeTab, setActiveTab] = useState<TabKind>('today')
   const [status, setStatus] = useState<DataStatus>(hasCurrentYearCache(cached?.matches) ? 'cached' : 'fallback')
@@ -200,7 +198,7 @@ function App() {
   const targetMatches = sortMatchesByKickoff(matchesByDate[targetDateKey] ?? [])
   const actionableMatches = targetMatches.filter((m) => isMatchActionable(m))
   const viewModels = buildMatchViewModels(actionableMatches, budget)
-  const allViewModels = buildMatchViewModels(sortMatchesByKickoff(matches), budget)
+  const scheduleViewModels = buildMatchViewModels(targetMatches, budget)
   const settledRecommendations = settleRecommendationSnapshots(snapshots, results)
   const [confirmedBuysTick, setConfirmedBuysTick] = useState(0)
   const confirmedSettlements = useMemo(
@@ -394,39 +392,11 @@ function App() {
       {errorMessage ? <div className="inline-warning">{errorMessage}</div> : null}
       {dateRail}
       {analyzeStatusBar}
-
-      <div className="budget-row">
-        <span>单场预算</span>
-        <div className="budget-inputs">
-          {[50, 100, 200].map((v) => (
-            <button
-              key={v}
-              type="button"
-              className={budget === v ? 'quick-budget active' : 'quick-budget'}
-              onClick={() => { setBudget(v); setBudgetInput(String(v)) }}
-            >{v}</button>
-          ))}
-          <input
-            type="number"
-            className="budget-input"
-            min="1"
-            value={budgetInput}
-            onChange={(e) => setBudgetInput(e.target.value)}
-            onBlur={() => {
-              const n = parseInt(budgetInput, 10)
-              if (n > 0) setBudget(n)
-              else setBudgetInput(String(budget))
-            }}
-          />
-        </div>
-      </div>
-
       {actionableMatches.length < targetMatches.length && (
         <p className="exclusion-note">
           已排除 {targetMatches.length - actionableMatches.length} 场已开赛或缺少赔率的比赛
         </p>
       )}
-
       <div className="card-list">
         {viewModels.length > 0 ? (
           viewModels.map((vm) => (
@@ -434,6 +404,7 @@ function App() {
               key={vm.match.id}
               viewModel={vm}
               budget={budget}
+              onBudgetChange={(v) => { setBudget(v) }}
               yearMatches={matches}
               yearResults={results}
               analysisYear={ANALYSIS_YEAR}
@@ -452,14 +423,15 @@ function App() {
     <div className="tab-content">
       {statusBar}
       {dateRail}
-      <div className="section-label">全部赛程 · {sortMatchesByKickoff(matches).length} 场</div>
+      <div className="section-label">{formatDateLabel(targetDateKey)} · {targetMatches.length} 场</div>
       <div className="card-list">
-        {allViewModels.length > 0 ? (
-          allViewModels.map((vm) => (
+        {scheduleViewModels.length > 0 ? (
+          scheduleViewModels.map((vm) => (
             <MatchAnalysisCard
               key={vm.match.id}
               viewModel={vm}
               budget={budget}
+              onBudgetChange={(v) => { setBudget(v) }}
               yearMatches={matches}
               yearResults={results}
               analysisYear={ANALYSIS_YEAR}
@@ -476,7 +448,6 @@ function App() {
 
   const reviewTab = (
     <div className="tab-content">
-      {/* ── Real P&L from confirmed buys ── */}
       <ConfirmedBuyReview
         settlements={confirmedSettlements}
         onBuyRemoved={() => setConfirmedBuysTick((n) => n + 1)}
@@ -487,7 +458,6 @@ function App() {
         statusLabel={resultStatus === 'live' ? '已刷新' : resultStatus === 'refreshing' ? '刷新中' : resultStatus === 'cached' ? '缓存' : '本地'}
         analysisYear={ANALYSIS_YEAR}
       />
-      <PerformanceReviewCard settlements={settledRecommendations} initialMode="conservative" />
     </div>
   )
 

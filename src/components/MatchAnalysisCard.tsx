@@ -14,6 +14,7 @@ import type { MatchRecord, MatchResultRecord, MatchViewModel, StrategyRow } from
 interface Props {
   viewModel: MatchViewModel
   budget: number
+  onBudgetChange?: (v: number) => void
   yearMatches: MatchRecord[]
   yearResults: MatchResultRecord[]
   analysisYear: number
@@ -95,12 +96,14 @@ function DriftWarning({ matchId, currentOdds, dateKey }: { matchId: string; curr
 function BuySection({
   viewModel,
   budget,
+  onBudgetChange,
   claude,
   onConfirm,
   confirmedBuy,
 }: {
   viewModel: MatchViewModel
   budget: number
+  onBudgetChange?: (v: number) => void
   claude?: ClaudeResult
   onConfirm: (buy: ConfirmedBuy) => void
   confirmedBuy: ConfirmedBuy | null
@@ -110,6 +113,7 @@ function BuySection({
   const [editingOdds, setEditingOdds] = useState(false)
   const [overrides, setOverrides] = useState<Record<string, number>>({})
   const [confirmed, setConfirmed] = useState(!!confirmedBuy)
+  const [budgetInput, setBudgetInput] = useState(String(budget))
 
   useEffect(() => {
     setConfirmed(!!confirmedBuy)
@@ -206,6 +210,25 @@ function BuySection({
 
   return (
     <div className="buy-section">
+      <div className="budget-row-inline">
+        <span>单场预算</span>
+        <div className="budget-inputs">
+          {[50, 100, 200].map((v) => (
+            <button key={v} type="button"
+              className={budget === v ? 'quick-budget active' : 'quick-budget'}
+              onClick={() => { onBudgetChange?.(v); setBudgetInput(String(v)) }}
+            >{v}</button>
+          ))}
+          <input type="number" className="budget-input" min="1" value={budgetInput}
+            onChange={(e) => setBudgetInput(e.target.value)}
+            onBlur={() => {
+              const n = parseInt(budgetInput, 10)
+              if (n > 0) onBudgetChange?.(n)
+              else setBudgetInput(String(budget))
+            }}
+          />
+        </div>
+      </div>
       <div className="buy-header">
         <div className="mode-tabs">
           <button type="button" className={mode === 'conservative' ? 'mode-tab active' : 'mode-tab'} onClick={() => setMode('conservative')}>保守</button>
@@ -280,7 +303,7 @@ function BuySection({
 }
 
 // ── Main card ─────────────────────────────────────────────────────────────────
-export function MatchAnalysisCard({ viewModel, budget, yearMatches, yearResults, analysisYear, claude, dateKey }: Props) {
+export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatches, yearResults, analysisYear, claude, dateKey }: Props) {
   const { match } = viewModel
   const [expanded, setExpanded] = useState(false)
   const [confirmedBuy, setConfirmedBuy] = useState<ConfirmedBuy | null>(
@@ -344,6 +367,7 @@ export function MatchAnalysisCard({ viewModel, budget, yearMatches, yearResults,
           <BuySection
             viewModel={viewModel}
             budget={budget}
+            onBudgetChange={onBudgetChange}
             claude={claude}
             onConfirm={setConfirmedBuy}
             confirmedBuy={confirmedBuy}
