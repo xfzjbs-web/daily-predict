@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { formatCurrency, formatOdds, formatPercent, formatSignedCurrency } from '../lib/format.ts'
-import { buildLocalInsight, detectOddsDrift, type ClaudeResult, type MatchAiInsight } from '../lib/aiAnalysis.ts'
+import { buildLocalInsight, detectOddsDrift, computeOddsTrend, type ClaudeResult, type MatchAiInsight } from '../lib/aiAnalysis.ts'
 import { getMatchActionState, matchActionLabel } from '../lib/schedule.ts'
 import {
   loadConfirmedBuys,
@@ -34,16 +34,52 @@ function recomputeRows(rows: StrategyRow[], overrides: Record<string, number>, b
   })
 }
 
+function AiDimBlock({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="ai-dim-block">
+      <div className="ai-block-label">{label}</div>
+      {children}
+    </div>
+  )
+}
+
+function AiText({ text }: { text: string }) {
+  return <p className="ai-dim-text">{text}</p>
+}
+
+function AiList({ items }: { items: string | string[] }) {
+  if (Array.isArray(items)) {
+    return (
+      <ul className="ai-matchup-list">
+        {items.map((pt, i) => <li key={i}>{pt}</li>)}
+      </ul>
+    )
+  }
+  return <AiText text={items} />
+}
+
 // ── AI Section ────────────────────────────────────────────────────────────────
 function AiSection({
   insight,
   claude,
   topOdds,
+  trendMap,
 }: {
   insight: MatchAiInsight
   claude?: ClaudeResult
   topOdds: Array<{ score: string; odds: number; outcomeType: string }>
+  trendMap: Record<string, { dir: 'up' | 'down' | 'flat'; pct: number }>
 }) {
+  const trendIcon = (score: string) => {
+    const t = trendMap[score]
+    if (!t || t.dir === 'flat') return null
+    return (
+      <span className={`trend-icon trend-${t.dir}`}>
+        {t.dir === 'down' ? '↓' : '↑'} {Math.abs(t.pct * 100).toFixed(1)}%
+      </span>
+    )
+  }
+
   if (claude) {
     const confMap = { high: ['高置信', 'badge-high'], medium: ['中置信', 'badge-mid'], low: ['低置信', 'badge-low'] } as const
     const [confLabel, confCls] = confMap[claude.confidence]
@@ -57,8 +93,7 @@ function AiSection({
         <p className="ai-verdict">{claude.verdict}</p>
 
         {topOdds.length > 0 && (
-          <div className="ai-odds-block">
-            <div className="ai-block-label">赔率隐含概率</div>
+          <AiDimBlock label="赔率隐含概率">
             <div className="ai-odds-rows">
               {topOdds.map((e) => {
                 const impl = (1 / e.odds) * 100
@@ -70,54 +105,29 @@ function AiSection({
                       <div className="ai-odds-bar" style={{ width: `${Math.min(impl * 2.5, 100)}%` }} />
                     </div>
                     <span className="ai-odds-pct">{impl.toFixed(1)}%</span>
+                    {trendIcon(e.score)}
                   </div>
                 )
               })}
             </div>
-          </div>
+          </AiDimBlock>
         )}
 
-        {claude.marketInsight && (
-          <div className="ai-dim-block">
-            <div className="ai-block-label">盘面解读</div>
-            <p className="ai-dim-text">{claude.marketInsight}</p>
-          </div>
-        )}
-
-        {claude.strategyComment && (
-          <div className="ai-dim-block">
-            <div className="ai-block-label">投注建议</div>
-            <p className="ai-dim-text">{claude.strategyComment}</p>
-          </div>
-        )}
-
-        {claude.teamNews && (
-          <div className="ai-dim-block">
-            <div className="ai-block-label">球队动态 / 阵容</div>
-            <p className="ai-dim-text">{claude.teamNews}</p>
-          </div>
-        )}
-
-        {claude.keyMatchup && (
-          <div className="ai-dim-block">
-            <div className="ai-block-label">关键对位</div>
-            {Array.isArray(claude.keyMatchup) ? (
-              <ul className="ai-matchup-list">
-                {claude.keyMatchup.map((pt, i) => <li key={i}>{pt}</li>)}
-              </ul>
-            ) : (
-              <p className="ai-dim-text">{claude.keyMatchup}</p>
-            )}
-          </div>
-        )}
+        {claude.groupScenario && <AiDimBlock label="积分情景"><AiText text={claude.groupScenario} /></AiDimBlock>}
+        {claude.form1stRound && <AiDimBlock label="首轮表现数据"><AiText text={claude.form1stRound} /></AiDimBlock>}
+        {claude.marketInsight && <AiDimBlock label="盘面解读"><AiText text={claude.marketInsight} /></AiDimBlock>}
+        {claude.teamNews && <AiDimBlock label="球队动态 / 阵容"><AiText text={claude.teamNews} /></AiDimBlock>}
+        {claude.keyMatchup && <AiDimBlock label="关键对位"><AiList items={claude.keyMatchup} /></AiDimBlock>}
+        {claude.h2hSummary && <AiDimBlock label="历史交手"><AiText text={claude.h2hSummary} /></AiDimBlock>}
+        {claude.venueFactor && <AiDimBlock label="场地 / 气候"><AiText text={claude.venueFactor} /></AiDimBlock>}
+        {claude.strategyComment && <AiDimBlock label="投注建议"><AiText text={claude.strategyComment} /></AiDimBlock>}
 
         {claude.riskFlags.length > 0 && (
-          <div className="ai-dim-block">
-            <div className="ai-block-label">风险提示</div>
+          <AiDimBlock label="风险提示">
             <div className="risk-tags">
               {claude.riskFlags.map((r) => <span key={r}>{r}</span>)}
             </div>
-          </div>
+          </AiDimBlock>
         )}
       </div>
     )
@@ -133,8 +143,7 @@ function AiSection({
       <p className="ai-verdict">{insight.finalVerdict}</p>
 
       {topOdds.length > 0 && (
-        <div className="ai-odds-block">
-          <div className="ai-block-label">赔率隐含概率</div>
+        <AiDimBlock label="赔率隐含概率">
           <div className="ai-odds-rows">
             {topOdds.map((e) => {
               const impl = (1 / e.odds) * 100
@@ -146,29 +155,23 @@ function AiSection({
                     <div className="ai-odds-bar" style={{ width: `${Math.min(impl * 2.5, 100)}%` }} />
                   </div>
                   <span className="ai-odds-pct">{impl.toFixed(1)}%</span>
+                  {trendIcon(e.score)}
                 </div>
               )
             })}
           </div>
-        </div>
+        </AiDimBlock>
       )}
 
-      <div className="ai-dim-block">
-        <div className="ai-block-label">历史基准</div>
-        <p className="ai-dim-text">{insight.yearConclusion}</p>
-      </div>
-      <div className="ai-dim-block">
-        <div className="ai-block-label">市场分析</div>
-        <p className="ai-dim-text">{insight.marketConclusion}</p>
-      </div>
+      <AiDimBlock label="历史基准"><AiText text={insight.yearConclusion} /></AiDimBlock>
+      <AiDimBlock label="市场分析"><AiText text={insight.marketConclusion} /></AiDimBlock>
 
       {insight.riskFlags.length > 0 && (
-        <div className="ai-dim-block">
-          <div className="ai-block-label">风险提示</div>
+        <AiDimBlock label="风险提示">
           <div className="risk-tags">
             {insight.riskFlags.map((r) => <span key={r}>{r}</span>)}
           </div>
-        </div>
+        </AiDimBlock>
       )}
     </div>
   )
@@ -421,6 +424,12 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
     match.oddsEntries.filter((e) => /^\d+:\d+$/.test(e.score)).map((e) => [e.score, e.odds])
   )
 
+  const trendMap = useMemo(
+    () => computeOddsTrend(match.id, currentOddsMap, dateKey),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [match.id, dateKey],
+  )
+
   return (
     <article className={`match-card ${expanded ? 'expanded' : ''} ${confirmedBuy ? 'bought' : ''}`}>
       <button
@@ -443,11 +452,19 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
             <span className="team away">{match.awayTeam}</span>
           </div>
           <div className="odds-chips">
-            {topOdds.map((e) => (
-              <span key={e.score} className={`odds-chip ${e.outcomeType}`}>
-                {e.score} <em>@{formatOdds(e.odds)}</em>
-              </span>
-            ))}
+            {topOdds.map((e) => {
+              const trend = trendMap[e.score]
+              return (
+                <span key={e.score} className={`odds-chip ${e.outcomeType}${trend?.dir !== 'flat' && trend ? ` chip-trend-${trend.dir}` : ''}`}>
+                  {e.score} <em>@{formatOdds(e.odds)}</em>
+                  {trend && trend.dir !== 'flat' && (
+                    <span className={`chip-arrow chip-arrow-${trend.dir}`}>
+                      {trend.dir === 'down' ? '↓' : '↑'}
+                    </span>
+                  )}
+                </span>
+              )
+            })}
           </div>
         </div>
         <span className="expand-icon">{expanded ? '▲' : '▼'}</span>
@@ -458,7 +475,7 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
           {claude && (
             <DriftWarning matchId={match.id} currentOdds={currentOddsMap} dateKey={dateKey} />
           )}
-          <AiSection insight={insight} claude={claude} topOdds={topOdds} />
+          <AiSection insight={insight} claude={claude} topOdds={topOdds} trendMap={trendMap} />
           <div className="section-divider" />
           <BuySection
             viewModel={viewModel}

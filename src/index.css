@@ -309,6 +309,11 @@ input { font: inherit; border: none; outline: none; }
 .odds-chip.home { border-color: #bfdbfe; background: #eff6ff; }
 .odds-chip.draw { border-color: #d8b4fe; background: #faf5ff; }
 .odds-chip.away { border-color: #fca5a5; background: #fff1f2; }
+.chip-trend-down { border-color: #6ee7b7 !important; background: #ecfdf5 !important; }
+.chip-trend-up   { border-color: #fda4af !important; background: #fff1f2 !important; }
+.chip-arrow { font-size: 10px; margin-left: 2px; font-weight: 700; }
+.chip-arrow-down { color: #10b981; }
+.chip-arrow-up   { color: #f43f5e; }
 
 .expand-icon {
   font-size: 11px;
