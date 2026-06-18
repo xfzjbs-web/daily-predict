@@ -14,7 +14,6 @@ import {
   getTodayKey,
   getTomorrowKey,
   groupMatchesByDate,
-  isMatchActionable,
   sortMatchesByKickoff,
 } from './lib/schedule.ts'
 import { fetchSportteryMatches } from './lib/sporttery.ts'
@@ -39,7 +38,12 @@ const RESULT_REFRESH_INTERVAL_MS = 15 * 60 * 1000
 const ANALYSIS_YEAR = new Date().getFullYear()
 
 type DataStatus = 'fallback' | 'cached' | 'refreshing' | 'live' | 'error'
-type TabKind = 'today' | 'schedule' | 'review' | 'settings'
+type TabKind = 'matches' | 'review' | 'settings'
+
+function isWorldCup(m: MatchRecord) {
+  const n = m.leagueName ?? ''
+  return !n || n.includes('世界杯') || n.toLowerCase().includes('world cup')
+}
 
 function ConfirmedBuyReview({
   settlements,
@@ -126,8 +130,8 @@ function withLegacySource(matches: MatchRecord[]) {
 }
 
 function getInitialMatches(cached: MatchRecord[] | undefined) {
-  const cy = cached ? filterMatchesByYear(cached, ANALYSIS_YEAR) : []
-  return cy.length > 0 ? cy : filterMatchesByYear(withLegacySource(legacyData.matches), ANALYSIS_YEAR)
+  const cy = cached ? filterMatchesByYear(cached, ANALYSIS_YEAR).filter(isWorldCup) : []
+  return cy.length > 0 ? cy : filterMatchesByYear(withLegacySource(legacyData.matches), ANALYSIS_YEAR).filter(isWorldCup)
 }
 
 function hasCurrentYearCache(cached: MatchRecord[] | undefined) {
@@ -166,7 +170,7 @@ function App() {
   const [results, setResults] = useState<MatchResultRecord[]>(() => filterResultsByYear(cachedResults?.results))
   const [budget, setBudget] = useState(prefs.budget)
   const [autoRefresh, setAutoRefresh] = useState(prefs.autoRefresh)
-  const [activeTab, setActiveTab] = useState<TabKind>('today')
+  const [activeTab, setActiveTab] = useState<TabKind>('matches')
   const [status, setStatus] = useState<DataStatus>(hasCurrentYearCache(cached?.matches) ? 'cached' : 'fallback')
   const [resultStatus, setResultStatus] = useState<DataStatus>(filterResultsByYear(cachedResults?.results).length > 0 ? 'cached' : 'fallback')
   const [lastRefreshAt, setLastRefreshAt] = useState<string | null>(cached?.updatedAt ?? null)
@@ -186,9 +190,7 @@ function App() {
   const primaryDateKey = getPrimaryDateKey(matches)
   const targetDateKey = selectedDateKey && matchesByDate[selectedDateKey] ? selectedDateKey : primaryDateKey
   const targetMatches = sortMatchesByKickoff(matchesByDate[targetDateKey] ?? [])
-  const actionableMatches = targetMatches.filter((m) => isMatchActionable(m))
-  const viewModels = buildMatchViewModels(actionableMatches, budget)
-  const scheduleViewModels = buildMatchViewModels(targetMatches, budget)
+  const viewModels = buildMatchViewModels(targetMatches, budget)
   const [confirmedBuysTick, setConfirmedBuysTick] = useState(0)
   const confirmedSettlements = useMemo(
     () => settleConfirmedBuys(loadConfirmedBuys(), results),
@@ -217,8 +219,8 @@ function App() {
     setErrorMessage('')
     try {
       const live = await fetchSportteryMatches(legacyData, signal)
-      const cy = filterMatchesByYear(live, ANALYSIS_YEAR)
-      if (cy.length === 0) throw new Error(`${ANALYSIS_YEAR} 年暂无可用赛程`)
+      const cy = filterMatchesByYear(live, ANALYSIS_YEAR).filter(isWorldCup)
+      if (cy.length === 0) throw new Error(`${ANALYSIS_YEAR} 年暂无可用世界杯赛程`)
       const updatedAt = writeCachedMatches(cy)
       setMatches(cy)
       setLastRefreshAt(updatedAt)
@@ -350,17 +352,12 @@ function App() {
   )
 
   // ── Tabs ────────────────────────────────────────────────────────────────────
-  const todayTab = (
+  const matchesTab = (
     <div className="tab-content">
       {statusBar}
       {errorMessage ? <div className="inline-warning">{errorMessage}</div> : null}
       {dateRail}
       {analyzeStatusBar}
-      {actionableMatches.length < targetMatches.length && (
-        <p className="exclusion-note">
-          已排除 {targetMatches.length - actionableMatches.length} 场已开赛或缺少赔率的比赛
-        </p>
-      )}
       <div className="card-list">
         {viewModels.length > 0 ? (
           viewModels.map((vm) => (
@@ -377,34 +374,7 @@ function App() {
             />
           ))
         ) : (
-          <div className="empty-state">当前日期暂无可计算的比赛，请切换日期或刷新赔率。</div>
-        )}
-      </div>
-    </div>
-  )
-
-  const scheduleTab = (
-    <div className="tab-content">
-      {statusBar}
-      {dateRail}
-      <div className="section-label">{formatDateLabel(targetDateKey)} · {targetMatches.length} 场</div>
-      <div className="card-list">
-        {scheduleViewModels.length > 0 ? (
-          scheduleViewModels.map((vm) => (
-            <MatchAnalysisCard
-              key={vm.match.id}
-              viewModel={vm}
-              budget={budget}
-              onBudgetChange={(v) => { setBudget(v) }}
-              yearMatches={matches}
-              yearResults={results}
-              analysisYear={ANALYSIS_YEAR}
-              claude={claudeInsights[vm.match.id]}
-              dateKey={targetDateKey}
-            />
-          ))
-        ) : (
-          <div className="empty-state">暂无赛程数据，请刷新。</div>
+          <div className="empty-state">暂无世界杯赛程，请切换日期或刷新。</div>
         )}
       </div>
     </div>
@@ -518,17 +488,15 @@ function App() {
       </header>
 
       <main className="app-main">
-        {activeTab === 'today' && todayTab}
-        {activeTab === 'schedule' && scheduleTab}
+        {activeTab === 'matches' && matchesTab}
         {activeTab === 'review' && reviewTab}
         {activeTab === 'settings' && settingsTab}
       </main>
 
       <nav className="tab-bar">
-        {(['today', 'schedule', 'review', 'settings'] as TabKind[]).map((tab) => {
+        {(['matches', 'review', 'settings'] as TabKind[]).map((tab) => {
           const labels: Record<TabKind, [string, string]> = {
-            today: ['🎯', '今日'],
-            schedule: ['📋', '赛程'],
+            matches: ['📋', '赛程'],
             review: ['📊', '复盘'],
             settings: ['⚙️', '设置'],
           }

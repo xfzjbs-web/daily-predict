@@ -1,4 +1,4 @@
-export const APP_VERSION = '1.4.0'
+export const APP_VERSION = '1.5.0'
 export const BUILD_DATE = '2026-06-18'
 
 export interface ChangelogEntry {
@@ -9,12 +9,12 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '1.4.0',
+    version: '1.5.0',
     date: '2026-06-18',
     changes: [
-      '复盘页布局精简：紧凑统计行，清晰赛果列表',
-      'AI 分析面板升级：展示赔率隐含概率、盘面解读、投注建议分块',
-      '赛程 Tab 按所选日期正确过滤比赛',
+      '今日+赛程合并为单一赛程 Tab，日期切换统一管理',
+      '只展示世界杯比赛，过滤非世界杯赛事',
+      '复盘页布局精简，AI 分析面板升级（赔率隐含概率可视化）',
     ],
   },
   {
