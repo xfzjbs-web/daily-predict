@@ -35,43 +35,119 @@ function recomputeRows(rows: StrategyRow[], overrides: Record<string, number>, b
 }
 
 // ── AI Section ────────────────────────────────────────────────────────────────
-function AiSection({ insight, claude }: { insight: MatchAiInsight; claude?: ClaudeResult }) {
+function AiSection({
+  insight,
+  claude,
+  topOdds,
+}: {
+  insight: MatchAiInsight
+  claude?: ClaudeResult
+  topOdds: Array<{ score: string; odds: number; outcomeType: string }>
+}) {
   if (claude) {
     const confMap = { high: ['高置信', 'badge-high'], medium: ['中置信', 'badge-mid'], low: ['低置信', 'badge-low'] } as const
     const [confLabel, confCls] = confMap[claude.confidence]
     return (
       <div className="ai-section">
         <div className="ai-header">
-          <span className="ai-label">Claude AI</span>
+          <span className="ai-label">Claude AI 分析</span>
           <span className={`confidence-badge ${confCls}`}>{confLabel}</span>
         </div>
+
         <p className="ai-verdict">{claude.verdict}</p>
+
+        {topOdds.length > 0 && (
+          <div className="ai-odds-block">
+            <div className="ai-block-label">赔率隐含概率</div>
+            <div className="ai-odds-rows">
+              {topOdds.map((e) => {
+                const impl = (1 / e.odds) * 100
+                return (
+                  <div key={e.score} className={`ai-odds-row ai-odds-${e.outcomeType}`}>
+                    <span className="ai-odds-score">{e.score}</span>
+                    <span className="ai-odds-val">@{formatOdds(e.odds)}</span>
+                    <div className="ai-odds-bar-wrap">
+                      <div className="ai-odds-bar" style={{ width: `${Math.min(impl * 2.5, 100)}%` }} />
+                    </div>
+                    <span className="ai-odds-pct">{impl.toFixed(1)}%</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {claude.marketInsight && (
-          <p className="ai-detail"><span>盘面</span>{claude.marketInsight}</p>
+          <div className="ai-dim-block">
+            <div className="ai-block-label">盘面解读</div>
+            <p className="ai-dim-text">{claude.marketInsight}</p>
+          </div>
         )}
+
         {claude.strategyComment && (
-          <p className="ai-detail"><span>策略</span>{claude.strategyComment}</p>
+          <div className="ai-dim-block">
+            <div className="ai-block-label">投注建议</div>
+            <p className="ai-dim-text">{claude.strategyComment}</p>
+          </div>
         )}
+
         {claude.riskFlags.length > 0 && (
-          <div className="risk-tags">
-            {claude.riskFlags.map((r) => <span key={r}>{r}</span>)}
+          <div className="ai-dim-block">
+            <div className="ai-block-label">风险提示</div>
+            <div className="risk-tags">
+              {claude.riskFlags.map((r) => <span key={r}>{r}</span>)}
+            </div>
           </div>
         )}
       </div>
     )
   }
+
   return (
     <div className="ai-section local">
       <div className="ai-header">
-        <span className="ai-label">本地规则</span>
-        <span className="ai-label-sub">仅今年数据</span>
+        <span className="ai-label">本地规则分析</span>
+        <span className="ai-label-sub">基于今年赔率样本</span>
       </div>
+
       <p className="ai-verdict">{insight.finalVerdict}</p>
-      <p className="ai-detail-plain">{insight.yearConclusion}</p>
-      <p className="ai-detail-plain">{insight.marketConclusion}</p>
+
+      {topOdds.length > 0 && (
+        <div className="ai-odds-block">
+          <div className="ai-block-label">赔率隐含概率</div>
+          <div className="ai-odds-rows">
+            {topOdds.map((e) => {
+              const impl = (1 / e.odds) * 100
+              return (
+                <div key={e.score} className={`ai-odds-row ai-odds-${e.outcomeType}`}>
+                  <span className="ai-odds-score">{e.score}</span>
+                  <span className="ai-odds-val">@{formatOdds(e.odds)}</span>
+                  <div className="ai-odds-bar-wrap">
+                    <div className="ai-odds-bar" style={{ width: `${Math.min(impl * 2.5, 100)}%` }} />
+                  </div>
+                  <span className="ai-odds-pct">{impl.toFixed(1)}%</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      <div className="ai-dim-block">
+        <div className="ai-block-label">历史基准</div>
+        <p className="ai-dim-text">{insight.yearConclusion}</p>
+      </div>
+      <div className="ai-dim-block">
+        <div className="ai-block-label">市场分析</div>
+        <p className="ai-dim-text">{insight.marketConclusion}</p>
+      </div>
+
       {insight.riskFlags.length > 0 && (
-        <div className="risk-tags">
-          {insight.riskFlags.map((r) => <span key={r}>{r}</span>)}
+        <div className="ai-dim-block">
+          <div className="ai-block-label">风险提示</div>
+          <div className="risk-tags">
+            {insight.riskFlags.map((r) => <span key={r}>{r}</span>)}
+          </div>
         </div>
       )}
     </div>
@@ -362,7 +438,7 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
           {claude && (
             <DriftWarning matchId={match.id} currentOdds={currentOddsMap} dateKey={dateKey} />
           )}
-          <AiSection insight={insight} claude={claude} />
+          <AiSection insight={insight} claude={claude} topOdds={topOdds} />
           <div className="section-divider" />
           <BuySection
             viewModel={viewModel}

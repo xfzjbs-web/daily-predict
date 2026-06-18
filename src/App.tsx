@@ -20,19 +20,12 @@ import {
 import { fetchSportteryMatches } from './lib/sporttery.ts'
 import { fetchSportteryResults } from './lib/sportteryResults.ts'
 import {
-  createRecommendationSnapshots,
-  mergeRecommendationSnapshots,
-  settleRecommendationSnapshots,
-} from './lib/recommendationHistory.ts'
-import {
   readCachedMatches,
   readCachedResults,
   readPreferences,
-  readRecommendationSnapshots,
   writeCachedMatches,
   writeCachedResults,
   writePreferences,
-  writeRecommendationSnapshots,
 } from './lib/storage.ts'
 import { loadConfirmedBuys, removeConfirmedBuy, settleConfirmedBuys } from './lib/confirmedBuys.ts'
 import { buildMatchViewModels } from './lib/strategy.ts'
@@ -169,11 +162,8 @@ function App() {
   const [cached] = useState(readCachedMatches)
   const [cachedResults] = useState(readCachedResults)
   const [prefs] = useState(readPreferences)
-  const [initialSnapshots] = useState(readRecommendationSnapshots)
-
   const [matches, setMatches] = useState<MatchRecord[]>(() => getInitialMatches(cached?.matches))
   const [results, setResults] = useState<MatchResultRecord[]>(() => filterResultsByYear(cachedResults?.results))
-  const [snapshots, setSnapshots] = useState(initialSnapshots)
   const [budget, setBudget] = useState(prefs.budget)
   const [autoRefresh, setAutoRefresh] = useState(prefs.autoRefresh)
   const [activeTab, setActiveTab] = useState<TabKind>('today')
@@ -199,7 +189,6 @@ function App() {
   const actionableMatches = targetMatches.filter((m) => isMatchActionable(m))
   const viewModels = buildMatchViewModels(actionableMatches, budget)
   const scheduleViewModels = buildMatchViewModels(targetMatches, budget)
-  const settledRecommendations = settleRecommendationSnapshots(snapshots, results)
   const [confirmedBuysTick, setConfirmedBuysTick] = useState(0)
   const confirmedSettlements = useMemo(
     () => settleConfirmedBuys(loadConfirmedBuys(), results),
@@ -306,31 +295,6 @@ function App() {
     writePreferences({ budget, autoRefresh, executionMode: 'conservative', remindersEnabled: false, reminderMinutes: 30 })
   }, [budget, autoRefresh])
 
-  // Snapshot updates
-  useEffect(() => {
-    const resultKeys = new Set(results.map((r) => `${r.matchDate}|${r.code}`))
-    const historical = withLegacySource(legacyData.matches).filter((m) =>
-      resultKeys.has(`${m.kickoff.slice(0, 10)}|${m.code}`),
-    )
-    const snap = createRecommendationSnapshots(buildMatchViewModels(historical, 100), 100, 'legacy-backtest', legacyData.meta.importedAt)
-    setSnapshots((cur) => {
-      const merged = mergeRecommendationSnapshots(cur, snap)
-      if (JSON.stringify(merged) === JSON.stringify(cur)) return cur
-      writeRecommendationSnapshots(merged)
-      return merged
-    })
-  }, [results])
-
-  useEffect(() => {
-    const actionable = matches.filter((m) => isMatchActionable(m))
-    const snap = createRecommendationSnapshots(buildMatchViewModels(actionable, budget), budget, 'live-capture')
-    setSnapshots((cur) => {
-      const merged = mergeRecommendationSnapshots(cur, snap)
-      if (JSON.stringify(merged) === JSON.stringify(cur)) return cur
-      writeRecommendationSnapshots(merged)
-      return merged
-    })
-  }, [budget, matches])
 
 
   // ── Shared UI ───────────────────────────────────────────────────────────────

@@ -905,3 +905,140 @@ input { font: inherit; border: none; outline: none; }
   color: var(--muted);
   font-size: 14px;
 }
+
+/* ── Recent Results Card (rrc) ── */
+.rrc {
+  margin: 12px 16px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.rrc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.rrc-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+.rrc-meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+.rrc-stats {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+.rrc-stat {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  border-right: 1px solid var(--line);
+}
+.rrc-stat:last-child { border-right: none; }
+.rrc-stat strong { font-size: 13px; }
+.rrc-stat small { font-size: 11px; color: var(--muted); }
+.rrc-list { display: flex; flex-direction: column; }
+.rrc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  gap: 8px;
+}
+.rrc-row:last-child { border-bottom: none; }
+.rrc-row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.rrc-teams {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rrc-code { font-size: 11px; color: var(--muted); }
+.rrc-row-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  flex-shrink: 0;
+}
+.rrc-score {
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.rrc-score-home { color: var(--blue); }
+.rrc-score-draw { color: var(--amber); }
+.rrc-score-away { color: var(--rose); }
+.rrc-ht {
+  font-size: 10px;
+  color: var(--muted);
+}
+.rrc-empty {
+  padding: 16px 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ── AI Odds Table ── */
+.ai-odds-block, .ai-dim-block {
+  margin-top: 10px;
+}
+.ai-block-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 5px;
+}
+.ai-odds-rows { display: flex; flex-direction: column; gap: 4px; }
+.ai-odds-row {
+  display: grid;
+  grid-template-columns: 36px 44px 1fr 40px;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.ai-odds-score { font-weight: 700; }
+.ai-odds-val { color: var(--muted); }
+.ai-odds-bar-wrap {
+  height: 6px;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.ai-odds-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--blue-mid);
+  opacity: .5;
+  transition: width .3s;
+}
+.ai-odds-home .ai-odds-score { color: var(--blue); }
+.ai-odds-draw .ai-odds-score { color: var(--amber); }
+.ai-odds-away .ai-odds-score { color: var(--rose); }
+.ai-odds-home .ai-odds-bar { background: var(--blue-mid); }
+.ai-odds-draw .ai-odds-bar { background: #f59e0b; }
+.ai-odds-away .ai-odds-bar { background: var(--rose); }
+.ai-odds-pct { font-size: 11px; color: var(--muted); text-align: right; }
+.ai-dim-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}

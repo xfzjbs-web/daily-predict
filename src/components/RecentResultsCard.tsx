@@ -9,18 +9,11 @@ interface RecentResultsCardProps {
 
 function parseGoals(score: string) {
   const [homeGoals, awayGoals] = score.split(':').map(Number)
-
-  return {
-    homeGoals,
-    awayGoals,
-  }
+  return { homeGoals, awayGoals }
 }
 
 function formatUpdatedAt(value: string | null) {
-  if (!value) {
-    return '尚未刷新'
-  }
-
+  if (!value) return '未刷新'
   return new Intl.DateTimeFormat('zh-CN', {
     month: '2-digit',
     day: '2-digit',
@@ -30,65 +23,49 @@ function formatUpdatedAt(value: string | null) {
 }
 
 export function RecentResultsCard({ results, updatedAt, statusLabel, analysisYear }: RecentResultsCardProps) {
-  const recentResults = results.slice(0, 8)
-  const homeWins = results.filter((result) => result.outcomeType === 'home').length
-  const draws = results.filter((result) => result.outcomeType === 'draw').length
-  const awayWins = results.filter((result) => result.outcomeType === 'away').length
-  const totalGoals = results.reduce((sum, result) => {
-    const { homeGoals, awayGoals } = parseGoals(result.finalScore)
+  const recentResults = results.slice(0, 12)
+  const homeWins = results.filter((r) => r.outcomeType === 'home').length
+  const draws = results.filter((r) => r.outcomeType === 'draw').length
+  const awayWins = results.filter((r) => r.outcomeType === 'away').length
+  const totalGoals = results.reduce((sum, r) => {
+    const { homeGoals, awayGoals } = parseGoals(r.finalScore)
     return sum + homeGoals + awayGoals
   }, 0)
-  const averageGoals = results.length > 0 ? totalGoals / results.length : 0
+  const avgGoals = results.length > 0 ? (totalGoals / results.length).toFixed(2) : '—'
 
   return (
-    <section className="recent-results-card" aria-label="今年近期世界杯赛果">
-      <header>
-        <div>
-          <p className="eyebrow">官方赛果</p>
-          <h2>{analysisYear} 年近期世界杯完场</h2>
-        </div>
-        <span>{statusLabel}</span>
-      </header>
-
-      <div className="result-summary-grid">
-        <div>
-          <span>完场样本</span>
-          <strong>{results.length} 场</strong>
-        </div>
-        <div>
-          <span>胜平负</span>
-          <strong>{homeWins} 主胜 · {draws} 平 · {awayWins} 客胜</strong>
-        </div>
-        <div>
-          <span>场均进球</span>
-          <strong>{averageGoals.toFixed(2)}</strong>
-        </div>
-        <div>
-          <span>更新时间</span>
-          <strong>{formatUpdatedAt(updatedAt)}</strong>
-        </div>
+    <section className="rrc">
+      <div className="rrc-header">
+        <span className="rrc-title">{analysisYear} 世界杯完场</span>
+        <span className="rrc-meta">{statusLabel} · {formatUpdatedAt(updatedAt)}</span>
       </div>
 
+      {results.length > 0 && (
+        <div className="rrc-stats">
+          <div className="rrc-stat"><strong>{results.length}</strong><small>完场</small></div>
+          <div className="rrc-stat rrc-stat-wide"><strong>{homeWins}W {draws}D {awayWins}L</strong><small>胜平负</small></div>
+          <div className="rrc-stat"><strong>{avgGoals}</strong><small>场均进球</small></div>
+        </div>
+      )}
+
       {recentResults.length > 0 ? (
-        <div className="result-list">
-          {recentResults.map((result) => (
-            <article key={result.id}>
-              <div>
-                <span>{result.matchDate} · {result.code}</span>
-                <strong>{result.homeTeam} vs {result.awayTeam}</strong>
+        <div className="rrc-list">
+          {recentResults.map((r) => (
+            <div key={r.id} className="rrc-row">
+              <div className="rrc-row-left">
+                <span className="rrc-teams">{r.homeTeam} vs {r.awayTeam}</span>
+                <span className="rrc-code">{r.matchDate.slice(5)} · {r.code}</span>
               </div>
-              <div className="result-score">
-                <strong>{result.finalScore}</strong>
-                <small>{result.halfTimeScore ? `半场 ${result.halfTimeScore}` : '全场'}</small>
+              <div className="rrc-row-right">
+                <span className={`rrc-score rrc-score-${r.outcomeType}`}>{r.finalScore}</span>
+                {r.halfTimeScore && <span className="rrc-ht">{r.halfTimeScore}</span>}
               </div>
-            </article>
+            </div>
           ))}
         </div>
       ) : (
-        <p className="result-empty">当前尚未获取到今年世界杯官方完场赛果，AI 将继续使用今年赔率样本分析。</p>
+        <p className="rrc-empty">暂无今年完场数据，AI 将使用赔率样本分析。</p>
       )}
-
-      <small className="result-source">来源：中国体育彩票足球赛果开奖接口；只保留今年世界杯完场数据。</small>
     </section>
   )
 }
