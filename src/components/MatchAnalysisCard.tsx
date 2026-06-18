@@ -101,7 +101,13 @@ function AiSection({
         {claude.keyMatchup && (
           <div className="ai-dim-block">
             <div className="ai-block-label">关键对位</div>
-            <p className="ai-dim-text">{claude.keyMatchup}</p>
+            {Array.isArray(claude.keyMatchup) ? (
+              <ul className="ai-matchup-list">
+                {claude.keyMatchup.map((pt, i) => <li key={i}>{pt}</li>)}
+              </ul>
+            ) : (
+              <p className="ai-dim-text">{claude.keyMatchup}</p>
+            )}
           </div>
         )}
 

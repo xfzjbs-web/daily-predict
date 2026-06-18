@@ -1042,3 +1042,15 @@ input { font: inherit; border: none; outline: none; }
   color: var(--muted);
   line-height: 1.5;
 }
+.ai-matchup-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ai-matchup-list li {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
