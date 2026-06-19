@@ -77,20 +77,18 @@ input { font: inherit; border: none; outline: none; }
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  background: var(--panel);
-  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, #0e1f4a 0%, #1a3570 100%);
+  border-bottom: none;
   flex-shrink: 0;
 }
 .app-header h1 {
   font-size: 18px;
   font-weight: 800;
-  background: linear-gradient(130deg, var(--blue) 30%, #7c3aed);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -.2px;
+  color: #fff;
+  letter-spacing: -.3px;
+  -webkit-text-fill-color: #fff;
 }
-.header-date { font-size: 13px; color: var(--muted); }
+.header-date { font-size: 13px; color: rgba(255,255,255,.55); }
 
 .app-main {
   flex: 1;
@@ -104,8 +102,9 @@ input { font: inherit; border: none; outline: none; }
   display: flex;
   height: var(--tab-height);
   background: var(--panel);
-  border-top: 1px solid var(--line);
+  border-top: 2px solid var(--line);
   flex-shrink: 0;
+  box-shadow: 0 -2px 12px rgba(12,21,38,.08);
 }
 .tab-btn {
   flex: 1;
@@ -301,14 +300,15 @@ input { font: inherit; border: none; outline: none; }
 .match-card {
   background: var(--panel);
   border: 1px solid var(--line);
+  border-left: 3px solid var(--line-strong);
   border-radius: var(--radius);
   margin: 0 12px;
   overflow: hidden;
   transition: border-color .15s, box-shadow .15s;
   box-shadow: var(--shadow-sm);
 }
-.match-card.expanded { border-color: var(--blue); border-left-width: 3px; }
-.match-card.bought { border-color: var(--green); border-left-width: 3px; }
+.match-card.expanded { border-color: var(--blue); border-left-color: var(--blue); border-left-width: 3px; }
+.match-card.bought { border-color: var(--green); border-left-color: var(--green); border-left-width: 3px; }
 .match-card.live-match { border-left: 3px solid var(--green); }
 
 /* Live badge pulse */
@@ -368,8 +368,11 @@ input { font: inherit; border: none; outline: none; }
   align-items: center;
   gap: 8px;
 }
-.team { font-size: 17px; font-weight: 800; color: var(--text); letter-spacing: -.2px; }
-.vs { font-size: 11px; color: var(--muted); font-weight: 600; }
+.team { font-size: 19px; font-weight: 800; color: var(--text); letter-spacing: -.3px; }
+.vs {
+  font-size: 10px; color: var(--muted); font-weight: 700;
+  background: var(--line); border-radius: 3px; padding: 1px 4px;
+}
 
 .odds-chips {
   display: flex;
@@ -394,6 +397,7 @@ input { font: inherit; border: none; outline: none; }
 @media (prefers-color-scheme: dark) {
   .chip-trend-down { border-color: #065f46 !important; background: #022c22 !important; }
   .chip-trend-up   { border-color: #881337 !important; background: #4c0519 !important; }
+  .app-header { background: linear-gradient(135deg, #070f24 0%, #0e1e42 100%); }
 }
 .chip-arrow { font-size: 10px; margin-left: 2px; font-weight: 700; }
 .chip-arrow-down { color: #10b981; }
