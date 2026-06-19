@@ -431,7 +431,7 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
   )
 
   return (
-    <article className={`match-card ${expanded ? 'expanded' : ''} ${confirmedBuy ? 'bought' : ''}`}>
+    <article className={`match-card ${expanded ? 'expanded' : ''} ${confirmedBuy ? 'bought' : ''} ${actionState === 'started' ? 'live-match' : ''}`}>
       <button
         type="button"
         className="match-card-header"
