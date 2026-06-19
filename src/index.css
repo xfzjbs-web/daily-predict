@@ -114,10 +114,13 @@ input { font: inherit; border: none; outline: none; }
 .refresh-btn {
   font-size: 12px;
   color: var(--blue);
-  padding: 3px 10px;
+  padding: 7px 12px;
+  min-height: 34px;
   border: 1px solid var(--blue);
   border-radius: 20px;
+  transition: background .12s;
 }
+.refresh-btn:active { background: var(--blue-soft); }
 .refresh-btn:disabled { opacity: .5; }
 
 /* ── Date Rail ── */
@@ -137,14 +140,18 @@ input { font: inherit; border: none; outline: none; }
   flex-direction: column;
   align-items: center;
   gap: 1px;
-  padding: 6px 12px;
+  padding: 8px 14px;
+  min-height: 44px;
+  justify-content: center;
   border-radius: 20px;
   border: 1.5px solid var(--line-strong);
   background: var(--panel-soft);
   font-size: 12px;
   color: var(--muted);
   white-space: nowrap;
+  transition: background .12s, border-color .12s;
 }
+.date-chip:active { background: #e2e8f0; }
 .date-chip strong { font-size: 13px; color: var(--text); }
 .date-chip.active {
   border-color: var(--blue);
@@ -161,14 +168,16 @@ input { font: inherit; border: none; outline: none; }
 }
 .analyze-btn {
   width: 100%;
-  padding: 10px;
+  padding: 11px;
   background: var(--blue);
   color: #fff;
   border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: .3px;
+  transition: opacity .15s;
 }
+.analyze-btn:active { opacity: .85; }
 .analyze-btn.done {
   background: var(--green);
   font-weight: 500;
@@ -233,7 +242,7 @@ input { font: inherit; border: none; outline: none; }
 }
 
 /* ── Card List ── */
-.card-list { display: flex; flex-direction: column; gap: 0; }
+.card-list { display: flex; flex-direction: column; gap: 8px; padding: 8px 0; }
 .section-label {
   padding: 10px 16px 6px;
   font-size: 12px;
@@ -246,9 +255,14 @@ input { font: inherit; border: none; outline: none; }
 /* ── Match Analysis Card ── */
 .match-card {
   background: var(--panel);
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin: 0 12px;
+  overflow: hidden;
+  transition: border-color .15s;
 }
-.match-card.expanded { border-left: 3px solid var(--blue); }
+.match-card.expanded { border-color: var(--blue); border-left-width: 3px; }
+.match-card.bought { border-color: var(--green); border-left-width: 3px; }
 
 .match-card-header {
   width: 100%;
@@ -257,7 +271,9 @@ input { font: inherit; border: none; outline: none; }
   padding: 12px 16px;
   text-align: left;
   gap: 8px;
+  transition: background .12s;
 }
+.match-card-header:active { background: var(--panel-soft); }
 .match-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
 
 .match-meta {
@@ -322,7 +338,14 @@ input { font: inherit; border: none; outline: none; }
 }
 
 /* ── Card Body ── */
-.match-card-body { border-top: 1px solid var(--line); }
+.match-card-body {
+  border-top: 1px solid var(--line);
+  animation: fadeSlideDown .18s ease;
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 .section-divider { height: 1px; background: var(--line); margin: 0 16px; }
 
 /* ── Action Badge ── */
@@ -364,11 +387,11 @@ input { font: inherit; border: none; outline: none; }
 }
 
 .ai-verdict {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--text);
-  line-height: 1.4;
-  margin-bottom: 8px;
+  line-height: 1.45;
+  margin-bottom: 10px;
 }
 .ai-detail {
   font-size: 13px;
@@ -666,14 +689,16 @@ input { font: inherit; border: none; outline: none; }
 .confirm-buy-btn {
   width: 100%;
   margin-top: 12px;
-  padding: 11px;
+  padding: 13px;
   background: var(--blue);
   color: #fff;
   border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: .3px;
+  transition: opacity .15s;
 }
+.confirm-buy-btn:active { opacity: .85; }
 
 /* ── Confirmed Banner ── */
 .confirmed-banner {
@@ -721,7 +746,6 @@ input { font: inherit; border: none; outline: none; }
 }
 
 /* ── Bought badge ── */
-.match-card.bought { border-left: 3px solid var(--green); }
 .bought-badge {
   font-size: 11px;
   color: var(--green);
