@@ -7,7 +7,7 @@
   --line: #e2e8f0;
   --line-strong: #cbd5e1;
   --text: #0f172a;
-  --muted: #64748b;
+  --muted: #52637a;
   --blue: #1d4ed8;
   --blue-soft: #eff6ff;
   --blue-mid: #3b82f6;
@@ -125,8 +125,8 @@ input { font: inherit; border: none; outline: none; }
 .refresh-btn {
   font-size: 12px;
   color: var(--blue);
-  padding: 7px 12px;
-  min-height: 34px;
+  padding: 8px 14px;
+  min-height: 44px;
   border: 1px solid var(--blue);
   border-radius: 20px;
   transition: background .12s;
@@ -285,7 +285,7 @@ input { font: inherit; border: none; outline: none; }
   transition: background .12s;
 }
 .match-card-header:active { background: var(--panel-soft); }
-.match-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.match-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
 
 .match-meta {
   display: flex;
@@ -464,10 +464,12 @@ input { font: inherit; border: none; outline: none; }
   overflow: hidden;
 }
 .mode-tab {
-  padding: 5px 14px;
+  padding: 7px 14px;
   font-size: 13px;
   color: var(--muted);
+  transition: background .12s;
 }
+.mode-tab:active { opacity: .7; }
 .mode-tab.active {
   background: var(--blue);
   color: #fff;
@@ -682,7 +684,8 @@ input { font: inherit; border: none; outline: none; }
 .reanalyze-btn {
   font-size: 12px;
   color: var(--blue);
-  padding: 3px 10px;
+  padding: 8px 12px;
+  min-height: 36px;
   border: 1px solid var(--blue);
   border-radius: 20px;
 }
@@ -751,11 +754,13 @@ input { font: inherit; border: none; outline: none; }
 .unconfirm-btn {
   font-size: 11px;
   color: var(--rose);
-  padding: 2px 8px;
+  padding: 6px 10px;
   border: 1px solid var(--rose);
   border-radius: 12px;
   margin-left: auto;
+  transition: opacity .12s;
 }
+.unconfirm-btn:active { opacity: .6; }
 
 /* ── Bought badge ── */
 .bought-badge {
@@ -886,14 +891,17 @@ input { font: inherit; border: none; outline: none; }
 .settings-row small { font-size: 12px; color: var(--muted); display: block; margin-top: 1px; }
 .settings-divider { height: 1px; background: var(--line); }
 .settings-action-btn {
-  padding: 6px 14px;
+  padding: 8px 16px;
+  min-height: 36px;
   background: var(--blue);
   color: #fff;
   border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 600;
   flex-shrink: 0;
+  transition: opacity .12s;
 }
+.settings-action-btn:active { opacity: .8; }
 .settings-action-btn:disabled { opacity: .5; }
 .settings-about {
   padding: 14px;
@@ -1038,7 +1046,7 @@ input { font: inherit; border: none; outline: none; }
 
 /* ── AI Odds Table ── */
 .ai-odds-block, .ai-dim-block {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 .ai-block-label {
   font-size: 11px;
@@ -1072,9 +1080,9 @@ input { font: inherit; border: none; outline: none; }
 .ai-odds-rows { display: flex; flex-direction: column; gap: 4px; }
 .ai-odds-row {
   display: grid;
-  grid-template-columns: 36px 44px 1fr 40px;
+  grid-template-columns: 36px 44px 1fr 40px 28px;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 12px;
 }
 .ai-odds-score { font-weight: 700; }
