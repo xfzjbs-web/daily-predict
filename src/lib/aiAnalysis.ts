@@ -14,9 +14,67 @@ export interface ClaudeResult {
   adjustedConservative: string[] | null
   adjustedAggressive: { main: string; tail: string } | null
   confidence: 'low' | 'medium' | 'high'
-  // Optional enrichment fields (added when lineup/player research is available)
   teamNews?: string                  // injuries, suspensions, lineup changes
   keyMatchup?: string | string[]     // tactical/player matchup points
+  h2hSummary?: string                // recent head-to-head record
+  form1stRound?: string              // first round xG / shots / possession
+  groupScenario?: string             // what each result means for group progression
+  venueFactor?: string               // stadium / altitude / climate impact
+}
+
+// ── Odds history (trend tracking) ────────────────────────────────────────────
+export interface OddsSnap { ts: number; odds: Record<string, number> }
+const HIST_PREFIX = 'oddsHist:'
+const MAX_SNAPS = 12
+
+export function loadOddsHistory(dateKey: string): Record<string, OddsSnap[]> {
+  try {
+    const raw = localStorage.getItem(HIST_PREFIX + dateKey)
+    return raw ? (JSON.parse(raw) as Record<string, OddsSnap[]>) : {}
+  } catch { return {} }
+}
+
+export function saveOddsHistory(
+  dateKey: string,
+  matchSnapshots: Record<string, Record<string, number>>,
+) {
+  try {
+    const hist = loadOddsHistory(dateKey)
+    const now = Date.now()
+    for (const [matchId, odds] of Object.entries(matchSnapshots)) {
+      if (!hist[matchId]) hist[matchId] = []
+      const snaps = hist[matchId]
+      // Avoid duplicate snap within 5 minutes
+      const last = snaps[snaps.length - 1]
+      if (last && now - last.ts < 5 * 60 * 1000) continue
+      snaps.push({ ts: now, odds })
+      if (snaps.length > MAX_SNAPS) snaps.splice(0, snaps.length - MAX_SNAPS)
+    }
+    localStorage.setItem(HIST_PREFIX + dateKey, JSON.stringify(hist))
+  } catch { /* quota */ }
+}
+
+// Compare current odds to oldest available snap; positive = odds rose (less likely), negative = dropped (more likely)
+export function computeOddsTrend(
+  matchId: string,
+  currentOdds: Record<string, number>,
+  dateKey: string,
+): Record<string, { dir: 'up' | 'down' | 'flat'; pct: number }> {
+  const hist = loadOddsHistory(dateKey)
+  const snaps = hist[matchId]
+  if (!snaps || snaps.length < 2) return {}
+  const ref = snaps[0].odds
+  const result: Record<string, { dir: 'up' | 'down' | 'flat'; pct: number }> = {}
+  for (const [score, cur] of Object.entries(currentOdds)) {
+    const old = ref[score]
+    if (old === undefined) continue
+    const pct = (cur - old) / old
+    result[score] = {
+      dir: Math.abs(pct) < 0.02 ? 'flat' : pct > 0 ? 'up' : 'down',
+      pct,
+    }
+  }
+  return result
 }
 
 export interface MatchAiInsight {

@@ -6,6 +6,7 @@ import { filterMatchesByYear } from './data/current-year-context.ts'
 import { legacyData } from './data/index.ts'
 import {
   fetchServerAnalysis,
+  saveOddsHistory,
   type BatchAnalysisState,
   type ClaudeResult,
 } from './lib/aiAnalysis.ts'
@@ -225,6 +226,16 @@ function App() {
       setMatches(cy)
       setLastRefreshAt(updatedAt)
       setStatus('live')
+      // Save odds snapshot per date for trend tracking
+      const byDate = new Map<string, Record<string, Record<string, number>>>()
+      for (const m of cy) {
+        const dk = m.kickoff.slice(2, 10).replace(/-/g, '')
+        if (!byDate.has(dk)) byDate.set(dk, {})
+        byDate.get(dk)![m.id] = Object.fromEntries(
+          m.oddsEntries.filter((e) => /^\d+:\d+$/.test(e.score)).map((e) => [e.score, e.odds])
+        )
+      }
+      for (const [dk, snaps] of byDate) saveOddsHistory(dk, snaps)
     } catch (err) {
       if (signal?.aborted) return
       setStatus((s) => s === 'refreshing' ? 'error' : s)
