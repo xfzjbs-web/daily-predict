@@ -83,8 +83,19 @@ input { font: inherit; border: none; outline: none; }
   font-size: 11px;
   color: var(--muted);
   padding: 8px 0;
+  position: relative;
+  transition: color .15s;
 }
-.tab-btn.active { color: var(--blue); }
+.tab-btn:active { opacity: .6; }
+.tab-btn.active { color: var(--blue); font-weight: 600; }
+.tab-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 25%; right: 25%;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 0 0 3px 3px;
+}
 .tab-icon { font-size: 20px; line-height: 1; }
 
 /* ── Tab Content ── */
@@ -314,12 +325,13 @@ input { font: inherit; border: none; outline: none; }
   flex-wrap: wrap;
 }
 .odds-chip {
-  font-size: 11px;
-  padding: 2px 7px;
+  font-size: 12px;
+  padding: 3px 8px;
   border-radius: 4px;
   background: var(--panel-soft);
   border: 1px solid var(--line);
   color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 .odds-chip em { font-style: normal; font-weight: 600; color: var(--text); }
 .odds-chip.home { border-color: #bfdbfe; background: #eff6ff; }
@@ -1029,13 +1041,34 @@ input { font: inherit; border: none; outline: none; }
   margin-top: 10px;
 }
 .ai-block-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: .5px;
+  letter-spacing: .4px;
   margin-bottom: 5px;
 }
+
+/* Key blocks: 投注建议 */
+.ai-dim-block--key {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--blue-soft);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-sm);
+}
+.ai-dim-block--key .ai-block-label { color: var(--blue); }
+.ai-dim-block--key .ai-dim-text { color: var(--text); }
+
+/* Warning blocks: 风险提示 */
+.ai-dim-block--warning {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--rose-soft);
+  border: 1px solid #fecdd3;
+  border-radius: var(--radius-sm);
+}
+.ai-dim-block--warning .ai-block-label { color: var(--rose); }
 .ai-odds-rows { display: flex; flex-direction: column; gap: 4px; }
 .ai-odds-row {
   display: grid;

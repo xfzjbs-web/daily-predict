@@ -34,9 +34,9 @@ function recomputeRows(rows: StrategyRow[], overrides: Record<string, number>, b
   })
 }
 
-function AiDimBlock({ label, children }: { label: string; children: React.ReactNode }) {
+function AiDimBlock({ label, children, variant }: { label: string; children: React.ReactNode; variant?: 'key' | 'warning' }) {
   return (
-    <div className="ai-dim-block">
+    <div className={`ai-dim-block${variant ? ` ai-dim-block--${variant}` : ''}`}>
       <div className="ai-block-label">{label}</div>
       {children}
     </div>
@@ -120,10 +120,10 @@ function AiSection({
         {claude.keyMatchup && <AiDimBlock label="关键对位"><AiList items={claude.keyMatchup} /></AiDimBlock>}
         {claude.h2hSummary && <AiDimBlock label="历史交手"><AiText text={claude.h2hSummary} /></AiDimBlock>}
         {claude.venueFactor && <AiDimBlock label="场地 / 气候"><AiText text={claude.venueFactor} /></AiDimBlock>}
-        {claude.strategyComment && <AiDimBlock label="投注建议"><AiText text={claude.strategyComment} /></AiDimBlock>}
+        {claude.strategyComment && <AiDimBlock label="投注建议" variant="key"><AiText text={claude.strategyComment} /></AiDimBlock>}
 
         {claude.riskFlags.length > 0 && (
-          <AiDimBlock label="风险提示">
+          <AiDimBlock label="风险提示" variant="warning">
             <div className="risk-tags">
               {claude.riskFlags.map((r) => <span key={r}>{r}</span>)}
             </div>
