@@ -1,28 +1,28 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f0f4f8;
+  --bg: #dfe6f0;
   --panel: #ffffff;
-  --panel-soft: #f8fafc;
+  --panel-soft: #f4f7fb;
   --line: #e2e8f0;
-  --line-strong: #cbd5e1;
-  --text: #0f172a;
+  --line-strong: #c8d3e0;
+  --text: #0c1526;
   --muted: #52637a;
-  --blue: #1d4ed8;
-  --blue-soft: #eff6ff;
-  --blue-mid: #3b82f6;
-  --green: #15803d;
-  --green-soft: #f0fdf4;
-  --rose: #be123c;
-  --rose-soft: #fff1f2;
-  --amber: #92400e;
-  --amber-soft: #fffbeb;
-  --purple: #6d28d9;
-  --purple-soft: #f5f3ff;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
-  --shadow: 0 2px 8px rgba(0,0,0,.10);
-  --radius: 12px;
-  --radius-sm: 8px;
+  --blue: #1a56e8;
+  --blue-soft: #edf3ff;
+  --blue-mid: #4070f4;
+  --green: #0d7a3e;
+  --green-soft: #e8faf0;
+  --rose: #c0143e;
+  --rose-soft: #ffeef2;
+  --amber: #8a3a00;
+  --amber-soft: #fff8e8;
+  --purple: #6422d4;
+  --purple-soft: #f3eeff;
+  --shadow-sm: 0 2px 10px rgba(12,21,38,.10);
+  --shadow: 0 4px 20px rgba(12,21,38,.14);
+  --radius: 14px;
+  --radius-sm: 10px;
   --tab-height: 60px;
   --header-height: 52px;
   font: 15px/1.5 "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -33,26 +33,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:          #0f172a;
-    --panel:       #1e293b;
-    --panel-soft:  #253347;
-    --line:        #334155;
-    --line-strong: #475569;
-    --text:        #f1f5f9;
-    --muted:       #94a3b8;
-    --blue:        #3b82f6;
-    --blue-soft:   #1e3a5f;
-    --blue-mid:    #60a5fa;
+    --bg:          #0b111f;
+    --panel:       #161f32;
+    --panel-soft:  #1e2a40;
+    --line:        #2a3a52;
+    --line-strong: #3d5068;
+    --text:        #eef2f8;
+    --muted:       #8ba3bf;
+    --blue:        #4f8ef7;
+    --blue-soft:   #172040;
+    --blue-mid:    #6fa5ff;
     --green:       #22c55e;
-    --green-soft:  #14532d;
+    --green-soft:  #0f3d22;
     --rose:        #f43f5e;
-    --rose-soft:   #4c0519;
+    --rose-soft:   #40101e;
     --amber:       #f59e0b;
-    --amber-soft:  #451a03;
+    --amber-soft:  #3a1a00;
     --purple:      #a78bfa;
-    --purple-soft: #2e1065;
-    --shadow-sm:   0 1px 3px rgba(0,0,0,.4);
-    --shadow:      0 2px 8px rgba(0,0,0,.6);
+    --purple-soft: #25104a;
+    --shadow-sm:   0 2px 12px rgba(0,0,0,.5);
+    --shadow:      0 4px 24px rgba(0,0,0,.65);
     color-scheme: dark;
   }
 }
@@ -81,7 +81,15 @@ input { font: inherit; border: none; outline: none; }
   border-bottom: 1px solid var(--line);
   flex-shrink: 0;
 }
-.app-header h1 { font-size: 17px; font-weight: 700; color: var(--blue); }
+.app-header h1 {
+  font-size: 18px;
+  font-weight: 800;
+  background: linear-gradient(130deg, var(--blue) 30%, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -.2px;
+}
 .header-date { font-size: 13px; color: var(--muted); }
 
 .app-main {
@@ -293,10 +301,11 @@ input { font: inherit; border: none; outline: none; }
 .match-card {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   margin: 0 12px;
   overflow: hidden;
-  transition: border-color .15s;
+  transition: border-color .15s, box-shadow .15s;
+  box-shadow: var(--shadow-sm);
 }
 .match-card.expanded { border-color: var(--blue); border-left-width: 3px; }
 .match-card.bought { border-color: var(--green); border-left-width: 3px; }
@@ -359,8 +368,8 @@ input { font: inherit; border: none; outline: none; }
   align-items: center;
   gap: 8px;
 }
-.team { font-size: 15px; font-weight: 700; color: var(--text); }
-.vs { font-size: 11px; color: var(--muted); }
+.team { font-size: 17px; font-weight: 800; color: var(--text); letter-spacing: -.2px; }
+.vs { font-size: 11px; color: var(--muted); font-weight: 600; }
 
 .odds-chips {
   display: flex;
@@ -369,17 +378,17 @@ input { font: inherit; border: none; outline: none; }
 }
 .odds-chip {
   font-size: 12px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 6px;
   background: var(--panel-soft);
-  border: 1px solid var(--line);
+  border: 1.5px solid var(--line-strong);
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
-.odds-chip em { font-style: normal; font-weight: 600; color: var(--text); }
-.odds-chip.home { border-color: #bfdbfe; background: #eff6ff; }
-.odds-chip.draw { border-color: #d8b4fe; background: #faf5ff; }
-.odds-chip.away { border-color: #fca5a5; background: #fff1f2; }
+.odds-chip em { font-style: normal; font-weight: 700; color: var(--text); font-size: 13px; }
+.odds-chip.home { border-color: #93c5fd; background: #edf4ff; }
+.odds-chip.draw { border-color: #c4b5fd; background: #f5f0ff; }
+.odds-chip.away { border-color: #fca5a5; background: #fff0f2; }
 .chip-trend-down { border-color: #6ee7b7 !important; background: #ecfdf5 !important; }
 .chip-trend-up   { border-color: #fda4af !important; background: #fff1f2 !important; }
 @media (prefers-color-scheme: dark) {
