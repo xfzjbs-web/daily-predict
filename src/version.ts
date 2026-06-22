@@ -1,5 +1,5 @@
-export const APP_VERSION = '1.5.0'
-export const BUILD_DATE = '2026-06-18'
+export const APP_VERSION = '1.6.0'
+export const BUILD_DATE = '2026-06-22'
 
 export interface ChangelogEntry {
   version: string
@@ -8,6 +8,15 @@ export interface ChangelogEntry {
 }
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.6.0',
+    date: '2026-06-22',
+    changes: [
+      '自动更新：APP 从远程加载最新内容，无需重装',
+      '日期轨道新增昨日标签，默认显示今日赛程',
+      '卡片折叠状态展示 AI 置信度与核心判断摘要',
+    ],
+  },
   {
     version: '1.5.0',
     date: '2026-06-18',
