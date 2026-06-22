@@ -14,6 +14,7 @@ import {
   getPrimaryDateKey,
   getTodayKey,
   getTomorrowKey,
+  getYesterdayKey,
   groupMatchesByDate,
   sortMatchesByKickoff,
 } from './lib/schedule.ts'
@@ -156,8 +157,10 @@ function formatDateLabel(dateKey: string) {
 
 function dateRoleLabel(dateKey: string) {
   const today = getTodayKey()
+  const yesterday = getYesterdayKey()
   const tomorrow = getTomorrowKey()
-  if (dateKey < today) return '历史'
+  if (dateKey === yesterday) return '昨日'
+  if (dateKey < yesterday) return '历史'
   if (dateKey === today) return '今日'
   if (dateKey === tomorrow) return '明日'
   return '未来'

@@ -25,9 +25,20 @@ export function getTodayKey(now = new Date()) {
   return toDateKey(now)
 }
 
+export function getYesterdayKey(now = new Date()) {
+  const yesterday = new Date(now)
+  yesterday.setDate(yesterday.getDate() - 1)
+  return toDateKey(yesterday)
+}
+
 export function getPrimaryDateKey(matches: MatchRecord[], now = new Date()) {
-  const tomorrowKey = getTomorrowKey(now)
   const todayKey = getTodayKey(now)
+  const tomorrowKey = getTomorrowKey(now)
+
+  // Prefer today if it has matches
+  if (matches.some((match) => getMatchDateKey(match) === todayKey)) {
+    return todayKey
+  }
 
   if (matches.some((match) => getMatchDateKey(match) === tomorrowKey)) {
     return tomorrowKey

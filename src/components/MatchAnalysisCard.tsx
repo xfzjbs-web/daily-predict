@@ -443,7 +443,6 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
             <span className="match-code">{match.code}</span>
             <span className="match-time">{match.kickoff.slice(5, 16).replace('T', ' ')}</span>
             <span className={`action-badge ${actionState}`}>{matchActionLabel(actionState)}</span>
-            {claude && !confirmedBuy && <span className="analyzed-badge">已分析</span>}
             {confirmedBuy && <span className="bought-badge">已买入</span>}
           </div>
           <div className="match-teams">
@@ -466,6 +465,20 @@ export function MatchAnalysisCard({ viewModel, budget, onBudgetChange, yearMatch
               )
             })}
           </div>
+          {claude ? (
+            <div className="ai-summary-row">
+              <span className="ai-summary-icon">🤖</span>
+              <span className={`ai-summary-conf badge-${claude.confidence}`}>
+                {claude.confidence === 'high' ? '高置信' : claude.confidence === 'medium' ? '中置信' : '低置信'}
+              </span>
+              <span className="ai-summary-verdict">{claude.verdict.slice(0, 48)}{claude.verdict.length > 48 ? '…' : ''}</span>
+            </div>
+          ) : (
+            <div className="ai-summary-row ai-summary-pending">
+              <span className="ai-summary-icon">⏳</span>
+              <span className="ai-summary-no-ai">暂无 AI 分析 · 展开查看本地规则分析</span>
+            </div>
+          )}
         </div>
         <span className="expand-icon">{expanded ? '▲' : '▼'}</span>
       </button>
