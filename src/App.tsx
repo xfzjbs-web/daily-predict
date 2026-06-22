@@ -383,7 +383,7 @@ function App() {
               yearMatches={matches}
               yearResults={results}
               analysisYear={ANALYSIS_YEAR}
-              claude={claudeInsights[vm.match.id]}
+              claude={claudeInsights[vm.match.code] ?? claudeInsights[vm.match.id]}
               dateKey={targetDateKey}
             />
           ))
